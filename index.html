@@ -63,6 +63,12 @@
       .button {
         width: min;
       }
+
+      input[type=text] {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid var(--dark-secondary-accent);
+      }
     </style>
     
     <title>Pathfinder 2E DPR</title>
@@ -79,11 +85,11 @@
     <div class="main">
       <div class="comparison-column">
         <div class="comparison-header">
-          <span>Level: <input type="text" size="2" maxlength="2" name="comparison_level"></span>
+          <span>Level: <input type="text" size="1" maxlength="2" name="comparison_level"></span>
         </div>
         <div class="attack-card">
-          <span>Attack Bonus: <input type="text" name="attack_bonus"></span>
-          <span>Damage: <input type="text" size="2" maxlength="2" name="damage-die-number">d<input type="text" size="2" maxlength="2" name="damage-die-size"> + <input type="text" size="2" maxlength="2" name="damage-static-bonus"></span>
+          <span>Attack Bonus: <input type="text" size="1" maxlength="2" width="min" name="attack_bonus"></span>
+          <span>Damage: <input type="text" size="1" maxlength="2" name="damage-die-number">d<input type="text" size="1" maxlength="2" name="damage-die-size"> + <input type="text" size="1" maxlength="2" name="damage-static-bonus"></span>
         </div>
       </div>
     </div>
