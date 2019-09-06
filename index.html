@@ -20,8 +20,8 @@
         background-color: var(--dark-background-color);
         color: var(--dark-text-color);
         display: grid;
-        grid-template-columns: 200px 20px 1fr;
-        grid-template-rows: 30px 20px 1fr;
+        grid-template-columns: 200px 40px 1fr;
+        grid-template-rows: 40px 20px 1fr;
         grid-template-areas: 
           "header header header"
           ". . ."
@@ -79,11 +79,11 @@
     <div class="main">
       <div class="comparison-column">
         <div class="comparison-header">
-          <span>Level: <input type="text" name="comparison_level"></span>
+          <span>Level: <input type="text" size="2" maxlength="2" name="comparison_level"></span>
         </div>
         <div class="attack-card">
           <span>Attack Bonus: <input type="text" name="attack_bonus"></span>
-          <span>Damage: <input type="text" name="damage-die-number">d<input type="text" name="damage-die-size"> + <input type="text" name="damage-static-bonus"></span>
+          <span>Damage: <input type="text" size="2" maxlength="2" name="damage-die-number">d<input type="text" size="2" maxlength="2" name="damage-die-size"> + <input type="text" size="2" maxlength="2" name="damage-static-bonus"></span>
         </div>
       </div>
     </div>
