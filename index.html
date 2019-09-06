@@ -9,15 +9,19 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-      --dark-text-color: white;
-      --dark-background-color: #5D5C61;
-      --dark-primary-color: #379683;
-      --dark-secondary-color: #B1A296;
-      --dark-primary-accent: #7395AE;
-      --dark-secondary-accent: #557A95;
-      
-      background-color: var(--dark-background-color);
-      color: var(--dark-text-color);
+      :root {
+        --dark-text-color: white;
+        --dark-background-color: #5D5C61;
+        --dark-primary-color: #379683;
+        --dark-secondary-color: #B1A296;
+        --dark-primary-accent: #7395AE;
+        --dark-secondary-accent: #557A95;
+      }
+
+      body {
+        background-color: var(--dark-background-color);
+        color: var(--dark-text-color);
+      }
     </style>
     
     <title>Pathfinder 2E DPR</title>
