@@ -6,8 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
       :root {
         --dark-text-color: white;
@@ -21,31 +19,71 @@
       body {
         background-color: var(--dark-background-color);
         color: var(--dark-text-color);
+        display: grid;
+        grid-template-columns: 200px 20px 1fr;
+        grid-template-rows: 30px 20px 1fr;
+        grid-template-areas: 
+          "header header header"
+          ". . ."
+          "sidebar . main";
+      }
+
+      .header {
+        grid-area: header;
+      }
+
+      .sidebar {
+        grid-area: sidebar;
+        display: grid;
+        grid-auto-rows: 1fr;
+        align-content: center;
+      }
+ 
+      .main {
+        grid-area: main;
+        display: grid;
+        grid-auto-columns: 1fr;
+        justify-content: start;
+      }
+     
+      .comparison-column {
+        width: min;
+        display: grid;
+        grid-auto-rows: 1fr;
+        align-content: center;
+      }
+
+      .attack-card {
+        width: 300px;
+        display: grid;
+        grid-auto-rows: 1fr;
+        align-content: center;
       }
     </style>
     
     <title>Pathfinder 2E DPR</title>
   </head>
   <body>
-    <div class="top attached header" style="margin-left: 2vw;">
-      <h1 class="ui">Pathfinder DPR</h1>
-      <h1 class="ui dividing header">
+    <div class="top attached header">
+      <h1 style="margin-left: 2vw;">Pathfinder DPR</h1>
     </div>
-    <div class="ui attached segment">
-      <div>
-        <button class="ui primary button">
-          Save
-        </button>
-        <button class="ui button">
-          Discard
-        </button>
+    <div class="sidebar">
+      <button class="button">
+        Average DPR
+      </button>
+    </div>
+    <div class="main">
+      <div class="comparison-column">
+        <div class="comparison-header">
+          <span>Level: <input type="text" name="comparison_level"></span>
+        </div>
+        <div class="attack-card">
+          <span>Attack Bonus: <input type="text" name="attack_bonus"></span>
+          <span>Damage: <input type="text" name="damage-die-number">d<input type="text" name="damage-die-size"> + <input type="text" name="damage-static-bonus"></span>
+        </div>
       </div>
     </div>
     <!-- Optional JavaScript -->
     <script src="https://polyfill.io/v3/polyfill.min.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>
