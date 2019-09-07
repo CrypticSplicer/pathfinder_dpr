@@ -99,12 +99,14 @@
         max-width: 200px;
       }
       input[type=text] {
-        width: 18px;
-        height: fit-content;
         background: transparent;
         border: none;
         border-bottom: 2px solid var(--dark-secondary-accent);
         outline: none;
+      }
+      input[type=text][maxlength=2] {
+        width: 1em;
+        height: 1em;
       }
     </style>
     
