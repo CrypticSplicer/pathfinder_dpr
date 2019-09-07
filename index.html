@@ -18,7 +18,8 @@
       }
 
       body {
-        background-color: var(--dark-background-color);
+        background: rgb(0,0,0);
+        background: linear-gradient(128deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 10%, rgba(119,108,104,1) 57%, rgba(119,108,104,1) 72%, rgba(99,71,57,1) 100%);
         color: var(--dark-text-color);
         display: grid;
         grid-template-columns: 200px 40px 1fr;
@@ -31,6 +32,10 @@
 
       .header {
         grid-area: header;
+        max-height: 40px;
+        background: rgb(244,240,238);
+        background: linear-gradient(37deg, rgba(244,240,238,1) 26%, rgba(176,158,152,1) 96%);
+        border: 2px 0px solid var(--dark-primary-color);
       }
 
       .sidebar {
@@ -50,7 +55,10 @@
       }
      
       .comparison-column {
-        width: min;
+        background: rgb(89,77,73);
+        background: linear-gradient(120deg, rgba(89,77,73,1) 25%, rgba(105,73,57,1) 94%);
+        min-width: 400px;
+        width: fit-content;
         display: grid;
         grid-auto-rows: 1fr;
         align-content: center;
