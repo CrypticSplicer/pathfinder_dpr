@@ -117,6 +117,38 @@
     </style>
     
     <title>Pathfinder 2E DPR</title>
+    
+    <template id="attack-card-template" class="attack-card">
+      <span>Attack Bonus: <input type="text" size="1" maxlength="2" width="min" class="attack_bonus"></span>
+      <span>Damage: <input type="text" size="1" maxlength="2" class="damage-die-number">d<input type="text" size="1" maxlength="2" class="damage-die-size"> + <input type="text" size="1" maxlength="2" name="damage-static-bonus"></span>
+    </template>
+    
+    <template id="comparison-column-template" class="attack-card">
+      <div class="comparison-header">
+        <span>Level: <input type="text" size="1" maxlength="2" name="comparison_level"></span>
+      </div>
+      <attack-card></attack-card>
+    </template>
+    
+    <script>
+      let attack_card = document.querySelector('#attack-card-template');
+      customElements.define('attack-card', class extends HTMLElement {
+        constructor() {
+          super(); // always call super() first in the constructor.
+          let shadowRoot = this.attachShadow({mode: 'open'});
+          shadowRoot.appendChild(attack_card.content.cloneNode(true));
+        }
+      });
+
+      let comparison_column = document.querySelector('#comparison-column-template');
+      customElements.define('comparison-column', class extends HTMLElement {
+        constructor() {
+          super(); // always call super() first in the constructor.
+          let shadowRoot = this.attachShadow({mode: 'open'});
+          shadowRoot.appendChild(comparison_column.content.cloneNode(true));
+        }
+      });
+    </script>
   </head>
   <body>
     <div class="header">
@@ -126,15 +158,7 @@
       <button type="button" class="btn btn-light">Average DPR</button>
     </div>
     <div class="main">
-      <div class="comparison-column">
-        <div class="comparison-header">
-          <span>Level: <input type="text" size="1" maxlength="2" name="comparison_level"></span>
-        </div>
-        <div class="attack-card">
-          <span>Attack Bonus: <input type="text" size="1" maxlength="2" width="min" class="attack_bonus"></span>
-          <span>Damage: <input type="text" size="1" maxlength="2" class="damage-die-number">d<input type="text" size="1" maxlength="2" class="damage-die-size"> + <input type="text" size="1" maxlength="2" name="damage-static-bonus"></span>
-        </div>
-      </div>
+      <comparison-column></comparison-column>
     </div>
  
     <!-- Optional JavaScript -->
