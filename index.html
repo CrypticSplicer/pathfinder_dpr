@@ -22,7 +22,7 @@
         background: linear-gradient(128deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 10%, rgba(119,108,104,1) 57%, rgba(119,108,104,1) 72%, rgba(99,71,57,1) 100%);
         color: var(--dark-text-color);
         display: grid;
-        grid-template-rows: 60px 1fr;
+        grid-template-rows: auto;
         grid-template-columns: 200px 1fr;
         grid-template-areas: 
           "header header"
@@ -49,6 +49,7 @@
         grid-area: main;
         display: grid;
         grid-auto-columns: 1fr;
+        grid-auto-flow: column;
         justify-content: start;
         grid-gap: 20px;
         margin: 20px;
