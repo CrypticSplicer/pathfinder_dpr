@@ -255,9 +255,10 @@
       function AverageDPR() {
         Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
           let ac = column.getElementsByClassName("comparison-ac")[0].value;
-          column.getElementsByClassName("average-damage")[0].innerHtml =
-            sum(Array.from(column.getElementsByClassName("attack-card")).map(x => AttackAverage(ac, x)));
-        })
+          let damage = sum(Array.from(column.getElementsByClassName("attack-card")).map(x => AttackAverage(ac, x)));
+          console.log(damage);
+          column.getElementsByClassName("average-damage")[0].innerHtml = damage;
+        });
       }
     </script>
   </head>
