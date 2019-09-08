@@ -221,7 +221,7 @@
       
       function DiceAverage(dice) {
         return sum(dice.map(x => {
-          return x.getElementsByClassName("die-number") ? x.getElementsByClassName("die-number")[0].value || 1
+          return x.getElementsByClassName("die-number") ? x.getElementsByClassName("die-number")[0].value : 1
             * (x.getElementsByClassName("die-size") ? ((x.getElementsByClassName("die-size")[0].value / 2) + 0.5) : 0);
         }));
       }
