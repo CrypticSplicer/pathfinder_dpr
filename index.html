@@ -197,6 +197,10 @@
         }
       });
       
+      function sum(list) {
+        return list.reduce((a, b) => a + b);
+      }
+      
       function AdjustedCheckSuccess(adjusted_check, roll) {
         let success_modifier = (roll == 20) ? -1 : (roll == 1) ? 1 : 0;
         if (roll >= adjusted_check + 10) {
