@@ -127,17 +127,22 @@
     
     <title>Pathfinder 2E DPR</title>
     
+    <template id="dice-span-template">
+      <span class="dice"><input type="number" size="1" maxlength="2" class="die-number">d<input type="number" size="1" maxlength="2" class="die-size"></span>
+    </template>
+    
     <template id="attack-card-template">
       <div class="attack-card">
-        <span>Attack Bonus: <input type="text" size="1" maxlength="2" width="min" class="attack_bonus"></span>
-        <span>Damage: <input type="text" size="1" maxlength="2" class="damage-die-number">d<input type="text" size="1" maxlength="2" class="damage-die-size"> + <input type="text" size="1" maxlength="2" name="damage-static-bonus"></span>
+        <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack_bonus"></span>
+        <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" name="static-bonus"></span>
+        <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" name="static-bonus"></span>
       </div>
     </template>
     
     <template id="comparison-column-template">
       <div class="comparison-column">
         <div class="comparison-header">
-          <span>AC: <input type="text" size="1" maxlength="2" name="comparison_ac"></span>
+          <span>AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
         </div>
         <div class="comparison-column-main">
           <attack-card></attack-card>
@@ -150,6 +155,18 @@
     </template>
     
     <script>
+      let dice_span = document.querySelector('#dice-span-template');
+      customElements.define('dice-span', class extends HTMLElement {
+        constructor() {
+          super();
+        }
+        connectedCallback() {
+          this.appendChild(dice_span.content.cloneNode(true));
+        }
+        disconnectedCallback() {
+          this.removeChild(this.firstChild);
+        }
+      });
       let attack_card = document.querySelector('#attack-card-template');
       customElements.define('attack-card', class extends HTMLElement {
         constructor() {
@@ -181,13 +198,71 @@
       <h1 style="margin-left: 2vw;">Pathfinder DPR</h1>
     </div>
     <div class="sidebar">
-      <button type="button" class="btn btn-light">Average DPR</button>
+      <button type="button" class="btn btn-light" onclick="AverageDPR()">Average DPR</button>
     </div>
     <div class="main">
       <comparison-column></comparison-column>
     </div>
  
-    <!-- Optional JavaScript -->
+    <!-- JavaScript -->
     <script src="https://polyfill.io/v3/polyfill.min.js"></script>
+    <script>
+      function AdjustedCheckSuccess(adjusted_check, roll) {
+        let success_modifier = (roll == 20) ? -1 : (roll == 1) ? 1 : 0;
+        if (roll >= adjusted_check + 10) {
+          return max(success_modifier, 0);
+        }
+        if (roll >= adjusted_check) {
+          return 1 + success_modifier;
+        }
+        if (roll > adjusted_check - 10) {
+          return 2 + success_modifier;
+        }
+        return min(3, 3 + success_modifier);
+      }
+      
+      function SuccessPercentiles(adjusted_check) {
+        let results = [0, 0, 0, 0];
+        for (let i = 1; i <= 20; i++) {
+          results[AdjustedCheckSuccess(adjusted_check)]++;
+        }
+        return results.map(x => x * 0.05);
+      }
+      
+      function DiceAverage(dice) {
+        return sum(dice.map(x => {
+          return x.getElementsByClass("die-number").value * ((x.getElementsByClass("die-size").value / 2) + 0.5)
+        }));
+      }
+      
+      function AverageDiceExpressionDamage(dice_expression) {
+        if (dice_expression.length != 1) {
+          return 0;
+        }
+        return DiceAverage(dice_expression[0].getElementsByClass("dice")) +
+            dice_expression[0].getElementsByClass("static-bonus")[0].value || 0;
+      }
+      
+      function AttackAverage(ac, attack_card) {
+        let adjusted_check = ac - attack_card.getElementsByClass("attack_bonus")[0].value;
+        let percentiles = SuccessPercentiles(adjusted_check);
+        let crit_damage = 0, hit_damage = 0, miss_damage = 0, fumble_damage = 0;
+        hit_damage = AverageDiceExpressionDamage(attack_card.getElementsByClass("damage"));
+        crit_damage = (hit_damage * 2) + AverageDiceExpressionDamage(attack_card.getElementsByClass("crit"));
+        miss_damage = AverageDiceExpressionDamage(attack_card.getElementsByClass("miss"));
+        fumble_damage = AverageDiceExpressionDamage(attack_card.getElementsByClass("fumble"));
+        
+        return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
+          miss_damage * percentiles[2] + fumble_damage * percentiles[3];
+      }
+      
+      function AverageDPR() {
+        document.getElementsByClass("comparison-column").forEach(column => {
+          let ac = column.getElementsByClass("comparison-ac")[0].value;
+          column.getElementsByClass("average-damage")[0].value =
+            sum(column.getElementsByClass("attack-card").map(x => AttackAverage(ac, x)));
+        })
+      }
+    </script>
   </body>
 </html>
