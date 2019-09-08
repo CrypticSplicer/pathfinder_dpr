@@ -225,8 +225,8 @@
       
       function DiceAverage(dice) {
         return sum(dice.map(x => {
-          return x.getElementsByClassName("die-number") ? x.getElementsByClassName("die-number")[0].value : 1
-            * (x.getElementsByClassName("die-size") ? ((x.getElementsByClassName("die-size")[0].value / 2) + 0.5) : 0);
+          return x.getElementsByClassName("die-number").length > 0 ? x.getElementsByClassName("die-number")[0].value : 1
+            * (x.getElementsByClassName("die-size").length > 0 ? ((x.getElementsByClassName("die-size")[0].value / 2) + 0.5) : 0);
         }));
       }
       
@@ -235,7 +235,7 @@
           return 0;
         }
         return DiceAverage(Array.from(dice_expression[0].getElementsByClassName("dice"))) +
-            dice_expression[0].getElementsByClassName("static-bonus") ?
+            dice_expression[0].getElementsByClassName("static-bonus").length > 0 ?
               dice_expression[0].getElementsByClassName("static-bonus")[0].value : 0;
       }
       
