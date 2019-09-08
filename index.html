@@ -107,7 +107,7 @@
         height: fit-content;
         max-width: 200px;
       }
-      input[type=text] {
+      input {
         background: transparent;
         border: none;
         border-bottom: 2px solid var(--dark-secondary-accent);
@@ -116,11 +116,11 @@
         font-weight: bold;
         color: white;
       }
-      input[type=text][maxlength="2"] {
+      input[maxlength="2"] {
         width: 1.2em;
         height: 1em;
       }
-      input[type=text].damage-die-number {
+      input.damage-die-number {
         text-align: right;
       }
     </style>
@@ -231,7 +231,7 @@
       
       function DiceAverage(dice) {
         return sum(dice.map(x => {
-          return x.getElementsByClass("die-number").value * ((x.getElementsByClass("die-size").value / 2) + 0.5)
+          return x.getElementsByClassName("die-number").value * ((x.getElementsByClassName("die-size").value / 2) + 0.5)
         }));
       }
       
@@ -239,28 +239,28 @@
         if (dice_expression.length != 1) {
           return 0;
         }
-        return DiceAverage(dice_expression[0].getElementsByClass("dice")) +
-            dice_expression[0].getElementsByClass("static-bonus")[0].value || 0;
+        return DiceAverage(dice_expression[0].getElementsByClassName("dice")) +
+            dice_expression[0].getElementsByClassName("static-bonus")[0].value || 0;
       }
       
       function AttackAverage(ac, attack_card) {
-        let adjusted_check = ac - attack_card.getElementsByClass("attack_bonus")[0].value;
+        let adjusted_check = ac - attack_card.getElementsByClassName("attack_bonus")[0].value;
         let percentiles = SuccessPercentiles(adjusted_check);
         let crit_damage = 0, hit_damage = 0, miss_damage = 0, fumble_damage = 0;
-        hit_damage = AverageDiceExpressionDamage(attack_card.getElementsByClass("damage"));
-        crit_damage = (hit_damage * 2) + AverageDiceExpressionDamage(attack_card.getElementsByClass("crit"));
-        miss_damage = AverageDiceExpressionDamage(attack_card.getElementsByClass("miss"));
-        fumble_damage = AverageDiceExpressionDamage(attack_card.getElementsByClass("fumble"));
+        hit_damage = AverageDiceExpressionDamage(attack_card.getElementsByClassName("damage"));
+        crit_damage = (hit_damage * 2) + AverageDiceExpressionDamage(attack_card.getElementsByClassName("crit"));
+        miss_damage = AverageDiceExpressionDamage(attack_card.getElementsByClassName("miss"));
+        fumble_damage = AverageDiceExpressionDamage(attack_card.getElementsByClassName("fumble"));
         
         return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
       }
       
       function AverageDPR() {
-        document.getElementsByClass("comparison-column").forEach(column => {
-          let ac = column.getElementsByClass("comparison-ac")[0].value;
-          column.getElementsByClass("average-damage")[0].value =
-            sum(column.getElementsByClass("attack-card").map(x => AttackAverage(ac, x)));
+        document.getElementsByClassName("comparison-column").forEach(column => {
+          let ac = column.getElementsByClassName("comparison-ac")[0].value;
+          column.getElementsByClassName("average-damage")[0].value =
+            sum(column.getElementsByClassName("attack-card").map(x => AttackAverage(ac, x)));
         })
       }
     </script>
