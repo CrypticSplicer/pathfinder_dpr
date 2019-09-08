@@ -204,7 +204,7 @@
       function AdjustedCheckSuccess(adjusted_check, roll) {
         let success_modifier = (roll == 20) ? -1 : (roll == 1) ? 1 : 0;
         if (roll >= adjusted_check + 10) {
-          return max(success_modifier, 0);
+          return success_modifier > 0 ? 1 : 0;
         }
         if (roll >= adjusted_check) {
           return 1 + success_modifier;
@@ -212,7 +212,7 @@
         if (roll > adjusted_check - 10) {
           return 2 + success_modifier;
         }
-        return min(3, 3 + success_modifier);
+        return success_modifier < 0 ? 2;
       }
       
       function SuccessPercentiles(adjusted_check) {
