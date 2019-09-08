@@ -158,6 +158,7 @@
       </div>
     </template>
     
+    <script src="https://polyfill.io/v3/polyfill.min.js"></script>
     <script>
       let dice_span = document.querySelector('#dice-span-template');
       customElements.define('dice-span', class extends HTMLElement {
@@ -195,22 +196,7 @@
           this.removeChild(this.firstChild);
         }
       });
-    </script>
-  </head>
-  <body>
-    <div class="header">
-      <h1 style="margin-left: 2vw;">Pathfinder DPR</h1>
-    </div>
-    <div class="sidebar">
-      <button type="button" class="btn btn-light" onclick="AverageDPR()">Average DPR</button>
-    </div>
-    <div class="main">
-      <comparison-column></comparison-column>
-    </div>
- 
-    <!-- JavaScript -->
-    <script src="https://polyfill.io/v3/polyfill.min.js"></script>
-    <script>
+      
       function AdjustedCheckSuccess(adjusted_check, roll) {
         let success_modifier = (roll == 20) ? -1 : (roll == 1) ? 1 : 0;
         if (roll >= adjusted_check + 10) {
@@ -270,5 +256,16 @@
         })
       }
     </script>
+  </head>
+  <body>
+    <div class="header">
+      <h1 style="margin-left: 2vw;">Pathfinder DPR</h1>
+    </div>
+    <div class="sidebar">
+      <button type="button" class="btn btn-light" onclick="AverageDPR()">Average DPR</button>
+    </div>
+    <div class="main">
+      <comparison-column></comparison-column>
+    </div>
   </body>
 </html>
