@@ -127,7 +127,7 @@
       <div class="comparison-header">
         <span>Level: <input type="text" size="1" maxlength="2" name="comparison_level"></span>
       </div>
-      <slot name="damage-card"></slot>
+      <attack-card></attack-card>
     </template>
     
     <script>
@@ -135,14 +135,24 @@
       customElements.define('attack-card', class extends HTMLElement {
         constructor() {
           super();
+        }
+        connectedCallback() {
           this.appendChild(attack_card.content.cloneNode(true));
+        }
+        disconnectedCallback() {
+          this.removeChild(this.firstChild);
         }
       });
       let comparison_column = document.querySelector('#comparison-column-template');
       customElements.define('comparison-column', class extends HTMLElement {
         constructor() {
           super();
+        }
+        connectedCallback() {
           this.appendChild(comparison_column.content.cloneNode(true));
+        }
+        disconnectedCallback() {
+          this.removeChild(this.firstChild);
         }
       });
     </script>
