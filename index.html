@@ -212,7 +212,7 @@
         if (roll > adjusted_check - 10) {
           return 2 + success_modifier;
         }
-        return success_modifier < 0 ? 2;
+        return success_modifier < 0 ? 2: 3;
       }
       
       function SuccessPercentiles(adjusted_check) {
