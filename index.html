@@ -118,16 +118,20 @@
     
     <title>Pathfinder 2E DPR</title>
     
-    <template id="attack-card-template" class="attack-card">
-      <span>Attack Bonus: <input type="text" size="1" maxlength="2" width="min" class="attack_bonus"></span>
-      <span>Damage: <input type="text" size="1" maxlength="2" class="damage-die-number">d<input type="text" size="1" maxlength="2" class="damage-die-size"> + <input type="text" size="1" maxlength="2" name="damage-static-bonus"></span>
+    <template id="attack-card-template">
+      <div class="attack-card">
+        <span>Attack Bonus: <input type="text" size="1" maxlength="2" width="min" class="attack_bonus"></span>
+        <span>Damage: <input type="text" size="1" maxlength="2" class="damage-die-number">d<input type="text" size="1" maxlength="2" class="damage-die-size"> + <input type="text" size="1" maxlength="2" name="damage-static-bonus"></span>
+      </div>
     </template>
     
-    <template id="comparison-column-template" class="attack-card">
-      <div class="comparison-header">
-        <span>Level: <input type="text" size="1" maxlength="2" name="comparison_level"></span>
+    <template id="comparison-column-template">
+      <div class="comparison-column">
+        <div class="comparison-header">
+          <span>Level: <input type="text" size="1" maxlength="2" name="comparison_level"></span>
+        </div>
+        <attack-card></attack-card>
       </div>
-      <attack-card></attack-card>
     </template>
     
     <script>
