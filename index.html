@@ -134,18 +134,14 @@
       let attack_card = document.querySelector('#attack-card-template');
       customElements.define('attack-card', class extends HTMLElement {
         constructor() {
-          super(); // always call super() first in the constructor.
-          let shadowRoot = this.attachShadow({mode: 'open'});
-          shadowRoot.appendChild(attack_card.content.cloneNode(true));
+          super();
         }
       });
 
       let comparison_column = document.querySelector('#comparison-column-template');
       customElements.define('comparison-column', class extends HTMLElement {
         constructor() {
-          super(); // always call super() first in the constructor.
-          let shadowRoot = this.attachShadow({mode: 'open'});
-          shadowRoot.appendChild(comparison_column.content.cloneNode(true));
+          super();
         }
       });
     </script>
