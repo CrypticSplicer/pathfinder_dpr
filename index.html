@@ -159,11 +159,14 @@
         </div>
         <div class="comparison-column-main">
           <attack-card></attack-card>
-          <attack-card></attack-card>
-          <attack-card></attack-card>
-          <attack-card></attack-card>
         </div>
-        <span>Average Damage: <span class="average-damage">0</span></span>
+        <div class="footer">
+          <span>Average Damage: <span class="average-damage">0</span></span>
+          <div>
+            <button type="button" class="btn btn-light" onclick="AddAttack()">+</button>
+            <button type="button" class="btn btn-light" onclick="RemoveAttack()">-</button>
+          </div>
+        </div>
       </div>
     </template>
     
@@ -270,6 +273,26 @@
           column.getElementsByClassName("average-damage")[0].innerHTML = damage;
         });
       }
+      
+      function AddAttack(event) {
+        let card = document.createElement("attack-card");
+        event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main").appendChild(card);
+      }
+      
+      function RemoveAttack(event) {
+        let main_column = event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main")
+        main_column.removeChild(main_column.lastChild);
+      }
+      
+      function AddColumn(event) {
+        let column = document.createElement("comparison-column");
+        event.target.parentElement.parentElement.getElementsByClassName("main").appendChild(column);
+      }
+      
+      function RemoveColumn(event) {
+        let main = event.target.parentElement.parentElement.getElementsByClassName("main")
+        main.removeChild(main.lastChild);
+      }
     </script>
   </head>
   <body>
@@ -278,6 +301,8 @@
     </div>
     <div class="sidebar">
       <button type="button" class="btn btn-light" onclick="AverageDPR()">Average DPR</button>
+      <button type="button" class="btn btn-light" onclick="AddColumn()">Add Column</button>
+      <button type="button" class="btn btn-light" onclick="RemoveColumn()">Remove Column</button>
     </div>
     <div class="main">
       <comparison-column></comparison-column>
