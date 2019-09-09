@@ -49,8 +49,8 @@
       .sidebar {
         grid-area: sidebar;
         display: grid;
-        grid-auto-rows: 1fr;
-        align-content: center;
+        align-content: start;
+        justify-content: center;
         grid-gap: 15px;
         margin: 20px
       }
@@ -66,6 +66,14 @@
       }
       
       .comparison-stats {
+        display: grid;
+        grid-auto-columns: 1fr;
+        grid-auto-flow: column;
+        justify-content: space-between;
+      }
+      
+      .footer {
+        width: 100%;
         display: grid;
         grid-auto-columns: 1fr;
         grid-auto-flow: column;
@@ -163,8 +171,8 @@
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
           <div>
-            <button type="button" class="btn btn-light" onclick="AddAttack()">+</button>
-            <button type="button" class="btn btn-light" onclick="RemoveAttack()">-</button>
+            <button type="button" class="btn btn-light" onclick="AddAttack(event)">+</button>
+            <button type="button" class="btn btn-light" onclick="RemoveAttack(event)">-</button>
           </div>
         </div>
       </div>
@@ -301,8 +309,8 @@
     </div>
     <div class="sidebar">
       <button type="button" class="btn btn-light" onclick="AverageDPR()">Average DPR</button>
-      <button type="button" class="btn btn-light" onclick="AddColumn()">Add Column</button>
-      <button type="button" class="btn btn-light" onclick="RemoveColumn()">Remove Column</button>
+      <button type="button" class="btn btn-light" onclick="AddColumn(event)">Add Column</button>
+      <button type="button" class="btn btn-light" onclick="RemoveColumn(event)">Remove Column</button>
     </div>
     <div class="main">
       <comparison-column></comparison-column>
