@@ -276,9 +276,13 @@
       
       function DiceAverage(dice) {
         return sum(dice.map(x => {
-          let die_number = x.getElementsByClassName("die-number") ? x.getElementsByClassName("die-number")[0].value : 1;
-          let die_size = x.getElementsByClassName("die-size") ? (x.getElementsByClassName("die-size")[0].value / 2) + 0.5 : 0;
-          return die_number * die_size;
+          let die_number = x.getElementsByClassName("die-number") ? x.getElementsByClassName("die-number")[0].value : 0;
+          let die_size = x.getElementsByClassName("die-size") ? x.getElementsByClassName("die-size")[0].value : 0;
+          if (die_number == 0 || die_size == 0) {
+            return 0;
+          }
+   
+          return die_number * ((die_size / 2.0) + 0.5);
         }));
       }
       
@@ -300,6 +304,7 @@
         let miss_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss")));
         let fumble_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble")));
         
+        console.log(percentiles);
         return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
       }
@@ -309,7 +314,7 @@
           let ac = column.getElementsByClassName("comparison-ac")[0].value;
           console.log(ac);
           let damage = sum(Array.from(column.getElementsByClassName("attack-card")).map(x => AttackAverage(ac, x)));
-          column.getElementsByClassName("average-damage")[0].innerHTML = damage;
+          column.getElementsByClassName("average-damage")[0].innerHTML = damage.toFixed(2);
         });
       }
       
