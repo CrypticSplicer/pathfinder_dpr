@@ -146,7 +146,7 @@
     
     <template id="attack-card-template">
       <div class="attack-card">
-        <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack_bonus"></span>
+        <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
       </div>
@@ -154,7 +154,7 @@
     
     <template id="comparison-column-template">
       <div class="comparison-column">
-        <span>Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
+        <span align="center">Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
         <div class="comparison-stats">
           <span>Target AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
         </div>
@@ -251,7 +251,7 @@
       }
       
       function AttackAverage(ac, attack_card) {
-        let attack_bonus = attack_card.getElementsByClassName("attack_bonus")[0].value;
+        let attack_bonus = attack_card.getElementsByClassName("attack-bonus")[0].value;
         let adjusted_check = ac - attack_bonus;
         let percentiles = SuccessPercentiles(adjusted_check);
         let hit_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage")));
@@ -266,8 +266,8 @@
       function AverageDPR() {
         Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
           let ac = column.getElementsByClassName("comparison-ac")[0].value;
+          console.log(ac);
           let damage = sum(Array.from(column.getElementsByClassName("attack-card")).map(x => AttackAverage(ac, x)));
-          console.log(damage);
           column.getElementsByClassName("average-damage")[0].innerHTML = damage;
         });
       }
