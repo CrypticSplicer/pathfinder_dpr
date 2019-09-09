@@ -124,7 +124,7 @@
         width: 1.2em;
         height: 1em;
       }
-      input.damage-die-number {
+      input.die-number {
         text-align: right;
       }
     </style>
@@ -203,6 +203,7 @@
       
       function AdjustedCheckSuccess(adjusted_check, roll) {
         let success_modifier = (roll == 20) ? -1 : (roll == 1) ? 1 : 0;
+        console.log(success_modifier)
         if (roll >= adjusted_check + 10) {
           return success_modifier > 0 ? 1 : 0;
         }
@@ -218,7 +219,7 @@
       function SuccessPercentiles(adjusted_check) {
         let results = [0.0, 0.0, 0.0, 0.0];
         for (let i = 1; i <= 20; i++) {
-          results[AdjustedCheckSuccess(adjusted_check)] += 1.0;
+          results[AdjustedCheckSuccess(adjusted_check, i)] += 1.0;
         }
         return results.map(x => x * 0.05);
       }
