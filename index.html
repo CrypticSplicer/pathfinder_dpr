@@ -216,9 +216,9 @@
       }
       
       function SuccessPercentiles(adjusted_check) {
-        let results = [0, 0, 0, 0];
+        let results = [0.0, 0.0, 0.0, 0.0];
         for (let i = 1; i <= 20; i++) {
-          results[AdjustedCheckSuccess(adjusted_check)]++;
+          results[AdjustedCheckSuccess(adjusted_check)] += 1.0;
         }
         return results.map(x => x * 0.05);
       }
@@ -241,7 +241,11 @@
       }
       
       function AttackAverage(ac, attack_card) {
-        let adjusted_check = ac - attack_card.getElementsByClassName("attack_bonus")[0].value;
+        console.log(ac);
+        console.log(attack_card);
+        let attack_bonus = attack_card.getElementsByClassName("attack_bonus")[0].value;
+        console.log(attack_bonus);
+        let adjusted_check = ac - attack_bonus;
         let percentiles = SuccessPercentiles(adjusted_check);
         let hit_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage")));
         let crit_damage = (hit_damage * 2) + AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit")));
