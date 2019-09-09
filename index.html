@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
       :root {
         --dark-text-color: white;
@@ -73,7 +74,6 @@
       }
       
       .footer {
-        width: 100%;
         display: grid;
         grid-auto-flow: column;
         justify-content: space-between;
@@ -144,7 +144,7 @@
      }
      .flat-button.tiny-button {
        width: fit-content;
-       height: fit-content;
+       
      }
      input[type=number]::-webkit-inner-spin-button, 
      input[type=number]::-webkit-outer-spin-button { 
@@ -194,8 +194,8 @@
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
           <div style="width:fit-content;">
-            <button type="button" class="flat-button tiny-button" onclick="AddAttack(event)">+</button>
-            <button type="button" class="flat-button tiny-button" onclick="RemoveAttack(event)">-</button>
+            <button class="icon-button" onclick="AddAttack(event)"><span class="glyphicon glyphicon-plus-sign"></span></button>
+            <button class="icon-button" onclick="RemoveAttack(event)"><span class="glyphicon glyphicon-minus-sign"></span></button>
           </div>
         </div>
       </div>
