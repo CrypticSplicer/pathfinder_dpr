@@ -249,7 +249,7 @@
       });
       
       function sum(list) {
-        return list.reduce((a, b) => a + b);
+        return list.reduce((a, b) => parseFloat(a) + parseFloat(b));
       }
       
       function AdjustedCheckSuccess(adjusted_check, roll) {
@@ -281,8 +281,7 @@
           if (die_number == 0 || die_size == 0) {
             return 0;
           }
-
-          return die_number * ((die_size / 2.0) + 0.5);
+          return parseFloat(die_number) * parseFloat(((die_size / 2.0) + 0.5));
         }));
       }
       
@@ -293,18 +292,17 @@
         let static_bonus = !isNan(dice_expression[0].getElementsByClassName("static-bonus")[0]) ?
               dice_expression[0].getElementsByClassName("static-bonus")[0].value : 0;
         let dice_average = DiceAverage(Array.from(dice_expression[0].getElementsByClassName("dice")));
-        console.log("Dice Average: ", dice_average, ", Static Bonus: ", static_bonus);
-        return dice_average + static_bonus;
+        return parseFloat(dice_average) + parseFloat(static_bonus);
       }
       
       function AttackAverage(ac, attack_card) {
         let attack_bonus = attack_card.getElementsByClassName("attack-bonus")[0].value;
-        let adjusted_check = ac - attack_bonus;
+        let adjusted_check = parseInt(ac) - parseInt(attack_bonus);
         let percentiles = SuccessPercentiles(adjusted_check);
-        let hit_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage")));
-        let crit_damage = (hit_damage * 2) + AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit")));
-        let miss_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss")));
-        let fumble_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble")));
+        let hit_damage = parseFloat(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage"))));
+        let crit_damage = (hit_damage * 2) + parseFloat(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit"))));
+        let miss_damage = parseFloat(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss"))));
+        let fumble_damage = parseFloat(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble"))));
         
         console.log(percentiles);
         console.log("Crit: ", crit_damage, ", Hit: ", hit_damage, ", Miss: ", miss_damage, ", Fumble: ", fumble_damage);
