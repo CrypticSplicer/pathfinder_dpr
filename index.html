@@ -284,21 +284,21 @@
       
       function AddAttack(event) {
         let card = document.createElement("attack-card");
-        event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main").appendChild(card);
+        event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main")[0].appendChild(card);
       }
       
       function RemoveAttack(event) {
-        let main_column = event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main")
+        let main_column = event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main")[0];
         main_column.removeChild(main_column.lastChild);
       }
       
       function AddColumn(event) {
         let column = document.createElement("comparison-column");
-        event.target.parentElement.parentElement.getElementsByClassName("main").appendChild(column);
+        event.target.parentElement.parentElement.getElementsByClassName("main")[0].appendChild(column);
       }
       
       function RemoveColumn(event) {
-        let main = event.target.parentElement.parentElement.getElementsByClassName("main")
+        let main = event.target.parentElement.parentElement.getElementsByClassName("main")[0];
         main.removeChild(main.lastChild);
       }
     </script>
