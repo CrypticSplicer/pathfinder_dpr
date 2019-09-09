@@ -225,8 +225,9 @@
       
       function DiceAverage(dice) {
         return sum(dice.map(x => {
-          return x.getElementsByClassName("die-number") ? x.getElementsByClassName("die-number")[0].value : 1
-            * (x.getElementsByClassName("die-size") ? ((x.getElementsByClassName("die-size")[0].value / 2) + 0.5) : 0);
+          let die_number = x.getElementsByClassName("die-number") ? x.getElementsByClassName("die-number")[0].value : 1;
+          let die_size = x.getElementsByClassName("die-size") ? (x.getElementsByClassName("die-size")[0].value / 2) + 0.5 : 0;
+          return die_number * die_size;
         }));
       }
       
@@ -234,19 +235,20 @@
         if (dice_expression.length != 1) {
           return 0;
         }
-        return DiceAverage(Array.from(dice_expression[0].getElementsByClassName("dice"))) +
-            dice_expression[0].getElementsByClassName("static-bonus") ?
+        let static_bonus = dice_expression[0].getElementsByClassName("static-bonus") ?
               dice_expression[0].getElementsByClassName("static-bonus")[0].value : 0;
+        return DiceAverage(Array.from(dice_expression[0].getElementsByClassName("dice"))) + static_bonus;
       }
       
       function AttackAverage(ac, attack_card) {
         let adjusted_check = ac - attack_card.getElementsByClassName("attack_bonus")[0].value;
         let percentiles = SuccessPercentiles(adjusted_check);
-        let crit_damage = 0, hit_damage = 0, miss_damage = 0, fumble_damage = 0;
-        hit_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage")));
-        crit_damage = (hit_damage * 2) + AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit")));
-        miss_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss")));
-        fumble_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble")));
+        let hit_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage")));
+        let crit_damage = (hit_damage * 2) + AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit")));
+        let miss_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss")));
+        let fumble_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble")));
+        console.log(percentiles);
+        console.log(hit_damage, crit_damage, miss_damage, fumble_damage);
         
         return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
