@@ -291,7 +291,7 @@
         if (dice_expression.length != 1) {
           return 0;
         }
-        let static_bonus = dice_expression[0].getElementsByClassName("static-bonus")[0]) ?
+        let static_bonus = dice_expression[0].getElementsByClassName("static-bonus") ?
               dice_expression[0].getElementsByClassName("static-bonus")[0].value : 0;
         let dice_average = DiceAverage(Array.from(dice_expression[0].getElementsByClassName("dice")));
         return Number(dice_average) + Number(static_bonus);
