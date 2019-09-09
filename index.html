@@ -293,7 +293,7 @@
         let static_bonus = dice_expression[0].getElementsByClassName("static-bonus") ?
               dice_expression[0].getElementsByClassName("static-bonus")[0].value : 0;
         let dice_average = DiceAverage(Array.from(dice_expression[0].getElementsByClassName("dice")));
-        console.log("Dice Average: ", dice_average, ", Static Bonus: " static_bonus)
+        console.log("Dice Average: ", dice_average, ", Static Bonus: ", static_bonus);
         return dice_average + static_bonus;
       }
       
