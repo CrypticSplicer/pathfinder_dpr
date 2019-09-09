@@ -249,7 +249,7 @@
       });
       
       function sum(list) {
-        return list.reduce((a, b) => Number.parseFloat(a) + Number.parseFloat(b));
+        return list.reduce((a, b) => parseFloat(a) + parseFloat(b));
       }
       
       function AdjustedCheckSuccess(adjusted_check, roll) {
@@ -276,14 +276,14 @@
       
       function DiceAverage(dice) {
         return sum(dice.map(x => {
-          let die_number = !Number.isNan(Number.parseInt(x.getElementsByClassName("die-number")[0])) ? 
+          let die_number = x.getElementsByClassName("die-number") ? 
               x.getElementsByClassName("die-number")[0].value : 0;
-          let die_size = !Number.isNan(Number.parseInt(x.getElementsByClassName("die-size")[0])) ?
+          let die_size = x.getElementsByClassName("die-size") ?
               x.getElementsByClassName("die-size")[0].value : 0;
           if (die_number == 0 || die_size == 0) {
             return 0;
           }
-          return parseFloat(die_number) * parseFloat(((die_size / 2.0) + 0.5));
+          return Number(die_number) * ((Number(die_size) / 2.0) + 0.5);
         }));
       }
       
@@ -291,20 +291,20 @@
         if (dice_expression.length != 1) {
           return 0;
         }
-        let static_bonus = !Number.isNan(Number.parseInt(dice_expression[0].getElementsByClassName("static-bonus")[0])) ?
+        let static_bonus = dice_expression[0].getElementsByClassName("static-bonus")[0]) ?
               dice_expression[0].getElementsByClassName("static-bonus")[0].value : 0;
         let dice_average = DiceAverage(Array.from(dice_expression[0].getElementsByClassName("dice")));
-        return parseFloat(dice_average) + parseFloat(static_bonus);
+        return Number(dice_average) + Number(static_bonus);
       }
       
       function AttackAverage(ac, attack_card) {
-        let attack_bonus = Number.parseInt(attack_card.getElementsByClassName("attack-bonus")[0].value);
-        let adjusted_check = Number.parseInt(ac) - attack_bonus;
+        let attack_bonus = Number(attack_card.getElementsByClassName("attack-bonus")[0].value);
+        let adjusted_check = Number(ac) - attack_bonus;
         let percentiles = SuccessPercentiles(adjusted_check);
-        let hit_damage = Number.parseFloat(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage"))));
-        let crit_damage = (hit_damage * 2) + Number.parseFloat(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit"))));
-        let miss_damage = Number.parseFloat(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss"))));
-        let fumble_damage = Number.parseFloat(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble"))));
+        let hit_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage"))));
+        let crit_damage = (hit_damage * 2) + Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit"))));
+        let miss_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss"))));
+        let fumble_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble"))));
         
         console.log(percentiles);
         console.log("Crit: ", crit_damage, ", Hit: ", hit_damage, ", Miss: ", miss_damage, ", Fumble: ", fumble_damage);
