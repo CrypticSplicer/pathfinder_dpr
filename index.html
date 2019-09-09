@@ -20,6 +20,7 @@
       body {
         width: 100vw;
         height: 100vw;
+        margin: 0px;
         color: var(--dark-text-color);
         background: rgb(0,0,0);
         background: linear-gradient(128deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 10%, rgba(119,108,104,1) 57%, rgba(119,108,104,1) 72%, rgba(99,71,57,1) 100%);
@@ -62,6 +63,14 @@
         grid-auto-flow: column;
         justify-content: start;
         grid-gap: 20px;
+      }
+      
+      .comparison-stats {
+        display: grid;
+        grid-auto-columns: 1fr;
+        grid-auto-flow: column;
+        place-items: center;
+        justify-content: space-between;
       }
      
       .comparison-column {
@@ -145,8 +154,9 @@
     
     <template id="comparison-column-template">
       <div class="comparison-column">
-        <div class="comparison-header">
-          <span>AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
+        <span>Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
+        <div class="comparison-stats">
+          <span>Target AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
         </div>
         <div class="comparison-column-main">
           <attack-card></attack-card>
