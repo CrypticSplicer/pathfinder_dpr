@@ -118,11 +118,34 @@
         padding: 10px;
       }
 
-      .btn {
-        width: fit-content;
-        height: fit-content;
-        max-width: 200px;
-      }
+     .flat-button {
+       position: relative;
+       vertical-align: top;
+       min-width: fit-content;
+       min-height: fit-content;
+       max-height: 60px;
+       padding: 0;
+       font-size: 22px;
+       color: white;
+       text-align: center;
+       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+       background: #34495e;
+       border: 0;
+       border-bottom: 2px solid #263849;
+       cursor: pointer;
+       -webkit-box-shadow: inset 0 -2px #263849;
+       box-shadow: inset 0 -2px #263849;
+     }
+     .flat-button:active {
+       top: 1px;
+       outline: none;
+       -webkit-box-shadow: none;
+       box-shadow: none;
+     }
+     .flat-button.tiny-button {
+       width: fit-content;
+       height: fit-content;
+     }
      input[type=number]::-webkit-inner-spin-button, 
      input[type=number]::-webkit-outer-spin-button { 
         -webkit-appearance: none; 
@@ -171,8 +194,8 @@
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
           <div>
-            <button type="button" class="btn btn-light" onclick="AddAttack(event)">+</button>
-            <button type="button" class="btn btn-light" onclick="RemoveAttack(event)">-</button>
+            <button type="button" class="flat-button tiny-button" onclick="AddAttack(event)">+</button>
+            <button type="button" class="flat-button tiny-button" onclick="RemoveAttack(event)">-</button>
           </div>
         </div>
       </div>
@@ -308,9 +331,9 @@
       <h1 style="margin-left: 2vw;">Pathfinder DPR</h1>
     </div>
     <div class="sidebar">
-      <button type="button" class="btn btn-light" onclick="AverageDPR()">Average DPR</button>
-      <button type="button" class="btn btn-light" onclick="AddColumn(event)">Add Column</button>
-      <button type="button" class="btn btn-light" onclick="RemoveColumn(event)">Remove Column</button>
+      <button type="button" class="flat-button" onclick="AverageDPR()">Average DPR</button>
+      <button type="button" class="flat-button" onclick="AddColumn(event)">Add Column</button>
+      <button type="button" class="flat-button" onclick="RemoveColumn(event)">Remove Column</button>
     </div>
     <div class="main">
       <comparison-column></comparison-column>
