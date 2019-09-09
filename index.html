@@ -276,8 +276,8 @@
       
       function DiceAverage(dice) {
         return sum(dice.map(x => {
-          let die_number = x.getElementsByClassName("die-number") ? x.getElementsByClassName("die-number")[0].value : 0;
-          let die_size = x.getElementsByClassName("die-size") ? x.getElementsByClassName("die-size")[0].value : 0;
+          let die_number = !isNan(x.getElementsByClassName("die-number")[0]) ? x.getElementsByClassName("die-number")[0].value : 0;
+          let die_size = !isNan(x.getElementsByClassName("die-size")[0]) ? x.getElementsByClassName("die-size")[0].value : 0;
           if (die_number == 0 || die_size == 0) {
             return 0;
           }
@@ -290,7 +290,7 @@
         if (dice_expression.length != 1) {
           return 0;
         }
-        let static_bonus = dice_expression[0].getElementsByClassName("static-bonus") ?
+        let static_bonus = !isNan(dice_expression[0].getElementsByClassName("static-bonus")[0]) ?
               dice_expression[0].getElementsByClassName("static-bonus")[0].value : 0;
         let dice_average = DiceAverage(Array.from(dice_expression[0].getElementsByClassName("dice")));
         console.log("Dice Average: ", dice_average, ", Static Bonus: ", static_bonus);
