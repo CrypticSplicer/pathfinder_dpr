@@ -305,6 +305,7 @@
         let fumble_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble")));
         
         console.log(percentiles);
+        console.log(crit_damage, hit_damage, miss_damage, fumble_damage);
         return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
       }
@@ -312,7 +313,6 @@
       function AverageDPR() {
         Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
           let ac = column.getElementsByClassName("comparison-ac")[0].value;
-          console.log(ac);
           let damage = sum(Array.from(column.getElementsByClassName("attack-card")).map(x => AttackAverage(ac, x)));
           column.getElementsByClassName("average-damage")[0].innerHTML = damage.toFixed(2);
         });
