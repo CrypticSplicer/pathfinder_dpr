@@ -203,7 +203,6 @@
       
       function AdjustedCheckSuccess(adjusted_check, roll) {
         let success_modifier = (roll == 20) ? -1 : (roll == 1) ? 1 : 0;
-        console.log(success_modifier)
         if (roll >= adjusted_check + 10) {
           return success_modifier > 0 ? 1 : 0;
         }
@@ -242,18 +241,13 @@
       }
       
       function AttackAverage(ac, attack_card) {
-        console.log(ac);
-        console.log(attack_card);
         let attack_bonus = attack_card.getElementsByClassName("attack_bonus")[0].value;
-        console.log(attack_bonus);
         let adjusted_check = ac - attack_bonus;
         let percentiles = SuccessPercentiles(adjusted_check);
         let hit_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage")));
         let crit_damage = (hit_damage * 2) + AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit")));
         let miss_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss")));
         let fumble_damage = AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble")));
-        console.log(percentiles);
-        console.log(hit_damage, crit_damage, miss_damage, fumble_damage);
         
         return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
@@ -264,7 +258,7 @@
           let ac = column.getElementsByClassName("comparison-ac")[0].value;
           let damage = sum(Array.from(column.getElementsByClassName("attack-card")).map(x => AttackAverage(ac, x)));
           console.log(damage);
-          column.getElementsByClassName("average-damage")[0].innerHtml = damage;
+          column.getElementsByClassName("average-damage")[0].innerHTML = damage;
         });
       }
     </script>
