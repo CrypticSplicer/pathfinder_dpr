@@ -27,8 +27,8 @@
         height: 100vw;
         margin: 0px;
         color: var(--dark-text-color);
-        background: rgb(0,0,0);
-        background: linear-gradient(128deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 10%, rgba(119,108,104,1) 57%, rgba(119,108,104,1) 72%, rgba(99,71,57,1) 100%);
+        background-color: #b3a27f;
+        background-image: url(https://www.transparenttextures.com/patterns/light-paper-fibers.png);
         display: grid;
         grid:
           "header header" 60px
@@ -40,9 +40,9 @@
         max-height: 60px;
         min-height: fit-content;
         grid-area: header;
-        background: rgb(244,240,238);
-        background: linear-gradient(37deg, rgba(244,240,238,1) 26%, rgba(176,158,152,1) 96%);
-        border: 2px 0px solid var(--dark-primary-color);
+        background: rgba(244,240,238,.75);
+        border-bottom: 4px solid whitesmoke;
+        box-shadow: 0px 2px 5px grey;
         color: Black;
         text-shadow:
            -1px -1px 0 White,  
@@ -87,7 +87,7 @@
       .comparison-column {
         height: fit-content;
         width: fit-content;
-        min-width: 400px;
+        min-width: 300px;
         max-width: 600px;
         background: rgb(89,77,73);
         background: linear-gradient(120deg, rgba(89,77,73,1) 25%, rgba(105,73,57,1) 94%);
@@ -97,7 +97,7 @@
         grid-gap: 5px;
         border-radius: 20px;
         padding: 10px;
-        margin: 20px;
+        margin-top: 20px;
       }
       
       .comparison-column-main {
