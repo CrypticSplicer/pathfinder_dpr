@@ -22,9 +22,10 @@
         pointer-events: none;
       }
 
+      html, body {margin: 0; height: 100%; overflow: hidden}
       body {
-        width: 100vw;
-        height: 100vw;
+        width: 100%;
+        height: 100%;
         margin: 0px;
         color: var(--dark-text-color);
         background-color: #b3a27f;
@@ -146,6 +147,7 @@
        -webkit-box-shadow: none;
        box-shadow: none;
      }
+      
      .icon-button {
        appearance: none;
        -webkit-appearance: none;
@@ -154,6 +156,51 @@
        border: 0;
        background: transparent;
      }
+
+     .plus-button,
+     .close-button {
+       border: 2px solid lightgrey;
+       background-color: #fff;
+       font-size: 16px;
+       height: 2.5em;
+       width: 2.5em;
+       border-radius: 999px;
+       position: relative;
+     }
+     .plus-button:after,
+     .plus-button:before,
+     .close-button:after,
+     .close-button:before {
+       content: "";
+       display: block;
+       background-color: grey;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+     }
+     .plus-button:before,
+     .close-button:before {
+       height: 1em;
+       width: 0.2em;
+     }
+     .plus-button:after,
+     .close-button:after {
+       height: 0.2em;
+       width: 1em;
+     }
+     .close-button:after,
+     .close-button:before {
+       transform: rotate(45deg);
+     }
+     .close-button {
+       margin-top: 2px;
+       margin-right: 2px;
+       position:absolute;
+       top:0;
+       right:0;  
+     }
+
      input[type=number]::-webkit-inner-spin-button, 
      input[type=number]::-webkit-outer-spin-button { 
         -webkit-appearance: none; 
@@ -183,28 +230,39 @@
     </template>
     
     <template id="attack-card-template">
-      <div class="attack-card">
+      <div class="attack-card damage-source">
+        <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
         <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
       </div>
     </template>
     
+    <template id="spell-card-template">
+      <div class="spell-card damage-source">
+        <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
+        <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
+        <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+        <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+      </div>
+    </template>
+    
     <template id="comparison-column-template">
+      <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
       <div class="comparison-column">
         <span align="center">Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
         <div class="comparison-stats">
           <span>Target AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
+          <span>Target Ref: <input type="text" size="1" maxlength="2" class="comparison-ref"></span>
+          <span>Target Fort: <input type="text" size="1" maxlength="2" class="comparison-fort"></span>
+          <span>Target Will: <input type="text" size="1" maxlength="2" class="comparison-will"></span>
         </div>
         <div class="comparison-column-main">
           <attack-card></attack-card>
         </div>
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
-          <div style="width:fit-content;">
-            <button class="icon-button" onclick="AddAttack(event)"><span class="glyphicon glyphicon-plus-sign"></span></button>
-            <button class="icon-button" onclick="RemoveAttack(event)"><span class="glyphicon glyphicon-minus-sign"></span></button>
-          </div>
+          <button class="plus-button" onclick="AddAttack(event)"></button>
         </div>
       </div>
     </template>
@@ -230,6 +288,18 @@
         }
         connectedCallback() {
           this.appendChild(attack_card.content.cloneNode(true));
+        }
+        disconnectedCallback() {
+          this.removeChild(this.firstChild);
+        }
+      });
+      let spell_card = document.querySelector('#spell-card-template');
+      customElements.define('spell-card', class extends HTMLElement {
+        constructor() {
+          super();
+        }
+        connectedCallback() {
+          this.appendChild(spell_card.content.cloneNode(true));
         }
         disconnectedCallback() {
           this.removeChild(this.firstChild);
@@ -314,15 +384,23 @@
       
       function AverageDPR() {
         Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
-          let ac = column.getElementsByClassName("comparison-ac")[0].value;
-          let damage = sum(Array.from(column.getElementsByClassName("attack-card")).map(x => AttackAverage(ac, x)));
+          let ac = Number(column.getElementsByClassName("comparison-ac")[0].value);
+          let ref = Number(column.getElementsByClassName("comparison-ref")[0].value);
+          let fort = Number(column.getElementsByClassName("comparison-fort")[0].value);
+          let will = Number(column.getElementsByClassName("comparison-will")[0].value);
+          let damage = sum(Array.from(column.getElementsByClassName("damage-source")).map(x => {
+            if (x.classList.contains("attack-card")) {
+              return AttackAverage(ac, x);
+            }
+            return 0;
+          }));
           column.getElementsByClassName("average-damage")[0].innerHTML = damage.toFixed(2);
         });
       }
       
       function AddAttack(event) {
         let card = document.createElement("attack-card");
-        event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main")[0].appendChild(card);
+        event.target.parentElement.parentElement.getElementsByClassName("comparison-column-main")[0].appendChild(card);
       }
       
       function RemoveAttack(event) {
@@ -338,6 +416,10 @@
       function RemoveColumn(event) {
         let main = event.target.parentElement.parentElement.getElementsByClassName("main")[0];
         main.removeChild(main.lastChild);
+      }
+      
+      function CloseGreatGrandParent(event) {
+        event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
       }
     </script>
   </head>
