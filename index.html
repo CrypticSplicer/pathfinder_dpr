@@ -228,8 +228,8 @@
     </template>
     
     <template id="attack-card-template">
-      <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
       <div class="attack-card damage-source">
+        <div style="height:0px;width:100%;position:relative;"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
         <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -417,7 +417,8 @@
       }
       
       function CloseGreatGrandParent(event) {
-        event.target.parentElement.parentElement.removeChild(event.target.parentElement);
+        event.target.parentElement.parentElement.parentElement.parentElement.removeChild(
+          event.target.parentElement.parentElement.parentElement);
       }
     </script>
   </head>
