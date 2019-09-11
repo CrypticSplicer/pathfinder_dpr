@@ -190,6 +190,7 @@
      }
      .close-button {
        content: "✖";
+       color: black;
        margin-top: auto;
        margin-left: auto;
        position:absolute;
@@ -258,7 +259,7 @@
         </div>
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
-          <button class="plus-button" onclick="AddAttack(event)"></button>
+          <div style="position:relative"><button class="plus-button" onclick="AddAttack(event)"></button></div>
         </div>
       </div>
     </template>
