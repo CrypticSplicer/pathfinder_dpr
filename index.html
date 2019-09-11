@@ -147,14 +147,6 @@
        box-shadow: none;
      }
       
-     .icon-button {
-       appearance: none;
-       -webkit-appearance: none;
-       -moz-appearance: none;
-       outline: none;
-       border: 0;
-       background: transparent;
-     }
      .plus-button,
      .close-button {
        color: black;
@@ -172,6 +164,9 @@
        margin: 20px;
        font-size: 20px;
        position: unset;
+     }
+     .plus-button.add-damage {
+       
      }
       
      .close-container {
@@ -244,7 +239,7 @@
         </div>
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
-          <div style="position:relative"><button class="plus-button" onclick="AddAttack(event)">➕</button></div>
+          <div style="position:relative;right:20px;"><button class="plus-button add-damage" onclick="AddAttack(event)"><span style="margin-left:-3px;">➕</span></button></div>
         </div>
       </div>
     </template>
