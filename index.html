@@ -105,8 +105,10 @@
       .comparison-column-main {
         height: fit-content;
         width: 100%;
-        display: flex;
-        row ;
+        display: grid;
+        grid-auto-rows: min-content;
+        align-content: center;
+        grid-gap: 5px;
       }
       .damage-source {
         height: fit-content;
