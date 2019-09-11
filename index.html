@@ -160,10 +160,11 @@
      .close-button {
        border: 2px solid lightgrey;
        background-color: #fff;
-       font-size: 10px;
-       height: 2.5em;
-       width: 2.5em;
+       font-size: 12px;
+       height: 2em;
+       width: 2em;
        border-radius: 999px;
+       position: absolute;
      }
      .plus-button:after,
      .plus-button:before {
@@ -191,11 +192,9 @@
        position: relative;
      }
      .close-button {
-       content: "✖";
        color: black;
        margin-top: auto;
        margin-left: auto;
-       position:absolute;
        top: -15px;
        right: -15px;
      }
@@ -230,7 +229,7 @@
     
     <template id="attack-card-template">
       <div class="attack-card damage-source">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
+        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
         <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -239,7 +238,7 @@
     
     <template id="spell-card-template">
       <div class="spell-card damage-source">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
+        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
         <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -248,7 +247,7 @@
     
     <template id="comparison-column-template">
       <div class="comparison-column">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
+        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
         <span align="center">Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
         <div class="comparison-stats">
           <span>Target AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
