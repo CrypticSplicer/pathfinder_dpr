@@ -64,11 +64,8 @@
       .main {
         height: 100%;
         grid-area: main;
-        display: grid;
-        grid-auto-columns: 1fr;
-        grid-auto-flow: column;
-        justify-content: start;
-        grid-gap: 20px;
+        display: flex;
+        flex-direction: row;
       }
       
       .comparison-stats {
@@ -99,6 +96,13 @@
         border-radius: 20px;
         padding: 10px;
         margin-top: 20px;
+        order: 1;
+      }
+      .comparison-column + .comparison-column + {
+        margin-left: 10px;
+      }
+      .comparison-column ~ .comparison-column + {
+        margin-right: 10px;
       }
       
       .comparison-column-main {
@@ -118,6 +122,7 @@
         display: grid;
         grid-auto-rows: min-content;
         align-content: center;
+        grid-gap: 15px;
         border-radius: 20px;
         padding: 10px;
       }
@@ -160,14 +165,16 @@
      .close-button {
        border: 2px solid lightgrey;
        background-color: #fff;
-       font-size: 12px;
-       height: 2em;
-       width: 2em;
+       font-size: 16px;
+       height: 2.2em;
+       width: 2.2em;
        border-radius: 999px;
-       position: absolute;
+       position: relative;
      }
      .plus-button:after,
-     .plus-button:before {
+     .plus-button:before,
+     .close-button:after,
+     .close-button:before {
        content: "";
        display: block;
        background-color: grey;
@@ -176,27 +183,24 @@
        left: 50%;
        transform: translate(-50%, -50%);
      }
-     .plus-button:before {
+     .plus-button:before,
+     .close-button:before {
        height: 1em;
        width: 0.2em;
      }
-     .plus-button:after {
+     .plus-button:after,
+     .close-button:after {
        height: 0.2em;
        width: 1em;
      }
-     .plus-button {
-       right: 50%;
-     }
-      
-     .close-container {
-       position: relative;
+     .close-button:after,
+     .close-button:before {
+       transform: rotate(45deg);
      }
      .close-button {
-       color: black;
        margin-top: auto;
        margin-left: auto;
-       top: -15px;
-       right: -15px;
+       position:absolute;
      }
 
      input[type=number]::-webkit-inner-spin-button, 
@@ -228,8 +232,8 @@
     </template>
     
     <template id="attack-card-template">
+      <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
       <div class="attack-card damage-source">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
         <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -238,7 +242,7 @@
     
     <template id="spell-card-template">
       <div class="spell-card damage-source">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
+        <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
         <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -246,8 +250,8 @@
     </template>
     
     <template id="comparison-column-template">
+      <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
       <div class="comparison-column">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
         <span align="center">Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
         <div class="comparison-stats">
           <span>Target AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
@@ -260,7 +264,7 @@
         </div>
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
-          <div style="position:relative"><button class="plus-button" onclick="AddAttack(event)"></button></div>
+          <button class="plus-button" onclick="AddAttack(event)"></button>
         </div>
       </div>
     </template>
@@ -398,12 +402,7 @@
       
       function AddAttack(event) {
         let card = document.createElement("attack-card");
-        event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main")[0].appendChild(card);
-      }
-      
-      function RemoveAttack(event) {
-        let main_column = event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main")[0];
-        main_column.removeChild(main_column.lastChild);
+        event.target.parentElement.parentElement.getElementsByClassName("comparison-column-main")[0].appendChild(card);
       }
       
       function AddColumn(event) {
@@ -411,14 +410,8 @@
         event.target.parentElement.parentElement.getElementsByClassName("main")[0].appendChild(column);
       }
       
-      function RemoveColumn(event) {
-        let main = event.target.parentElement.parentElement.getElementsByClassName("main")[0];
-        main.removeChild(main.lastChild);
-      }
-      
       function CloseGreatGrandParent(event) {
-        event.target.parentElement.parentElement.parentElement.parentElement.removeChild(
-          event.target.parentElement.parentElement.parentElement);
+        event.target.parentElement.parentElement.removeChild(event.target.parentElement);
       }
     </script>
   </head>
@@ -428,11 +421,11 @@
     </div>
     <div class="sidebar">
       <button type="button" class="flat-button" onclick="AverageDPR()">Average DPR</button>
-      <button type="button" class="flat-button" onclick="AddColumn(event)">Add Column</button>
-      <button type="button" class="flat-button" onclick="RemoveColumn(event)">Remove Column</button>
+      <button type="button" class="flat-button" style="order:2;" onclick="AddColumn(event)">Add Column</button>
     </div>
     <div class="main">
       <comparison-column></comparison-column>
+      <button type="button" class="plus-button" style="font-size:20px;" onclick="AverageDPR()">Average DPR</button>
     </div>
   </body>
 </html>
