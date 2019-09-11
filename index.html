@@ -161,16 +161,14 @@
      .close-button {
        border: 2px solid lightgrey;
        background-color: #fff;
-       font-size: 16px;
+       font-size: 10px;
        height: 2.5em;
        width: 2.5em;
        border-radius: 999px;
-       position: relative;
+       position: absolute;
      }
      .plus-button:after,
-     .plus-button:before,
-     .close-button:after,
-     .close-button:before {
+     .plus-button:before {
        content: "";
        display: block;
        background-color: grey;
@@ -179,24 +177,25 @@
        left: 50%;
        transform: translate(-50%, -50%);
      }
-     .plus-button:before,
-     .close-button:before {
+     .plus-button:before {
        height: 1em;
        width: 0.2em;
      }
-     .plus-button:after,
-     .close-button:after {
+     .plus-button:after {
        height: 0.2em;
        width: 1em;
      }
-     .close-button:after,
-     .close-button:before {
-       transform: rotate(45deg);
+      
+     .close-container {
+       position: relative;
      }
      .close-button {
+       content: "✖";
        margin-top: auto;
        margin-left: auto;
        position:absolute;
+       top: -15px;
+      right: -15px;
      }
 
      input[type=number]::-webkit-inner-spin-button, 
@@ -238,7 +237,7 @@
     
     <template id="spell-card-template">
       <div class="spell-card damage-source">
-        <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
+        <div style="height:0px;width:100%;position:relative;"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
         <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -246,8 +245,8 @@
     </template>
     
     <template id="comparison-column-template">
-      <button class="close-button" onclick="CloseGreatGrandParent(event)"></button>
       <div class="comparison-column">
+        <div style="height:0px;width:100%;position:relative;"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
         <span align="center">Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
         <div class="comparison-stats">
           <span>Target AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
