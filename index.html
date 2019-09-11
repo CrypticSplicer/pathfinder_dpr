@@ -118,7 +118,6 @@
         display: grid;
         grid-auto-rows: min-content;
         align-content: center;
-        grid-gap: 15px;
         border-radius: 20px;
         padding: 10px;
       }
@@ -228,7 +227,7 @@
     
     <template id="attack-card-template">
       <div class="attack-card damage-source">
-        <div style="height:0px;width:100%;position:relative;"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
+        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
         <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -237,7 +236,7 @@
     
     <template id="spell-card-template">
       <div class="spell-card damage-source">
-        <div style="height:0px;width:100%;position:relative;"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
+        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
         <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -246,7 +245,7 @@
     
     <template id="comparison-column-template">
       <div class="comparison-column">
-        <div style="height:0px;width:100%;position:relative;"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
+        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)"></button></div>
         <span align="center">Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
         <div class="comparison-stats">
           <span>Target AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
