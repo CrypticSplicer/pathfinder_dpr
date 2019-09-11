@@ -97,10 +97,10 @@
       }
       
       comparison-column + comparison-column {
-        margin-left: 10px;
+        margin-right: 20px;
       }
       comparison-column ~ comparison-column {
-        margin-right: 10px;
+        margin-left: 20px;
       }
       
       .comparison-column-main {
@@ -157,6 +157,8 @@
      }
      .plus-button,
      .close-button {
+       color: black;
+       font-weight: bold;
        border: 2px solid lightgrey;
        background-color: #fff;
        font-size: 12px;
@@ -164,27 +166,6 @@
        width: 2.2em;
        border-radius: 999px;
        position: absolute;
-     }
-     .plus-button:after,
-     .plus-button:before {
-       content: "";
-       display: block;
-       background-color: grey;
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-     }
-     .plus-button:before {
-       height: 1em;
-       width: 0.2em;
-     }
-     .plus-button:after {
-       height: 0.2em;
-       width: 1em;
-     }
-     .plus-button {
-       right: 50%;
      }
      .plus-button.add-column {
        order: 2;
@@ -197,8 +178,6 @@
        position: relative;
      }
      .close-button {
-       color: black;
-       font-weight: bold;
        margin-top: auto;
        margin-left: auto;
        position:absolute;
@@ -266,7 +245,7 @@
         </div>
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
-          <div style="position:relative"><button class="plus-button" onclick="AddAttack(event)"></button></div>
+          <div style="position:relative"><button class="plus-button" onclick="AddAttack(event)">➕</button></div>
         </div>
       </div>
     </template>
@@ -427,7 +406,7 @@
     </div>
     <div class="main">
       <comparison-column></comparison-column>
-      <button type="button" class="plus-button add-column" style="font-size:20px;order:2;"  onclick="AddColumn(event)"></button>
+      <button type="button" class="plus-button add-column" style="font-size:20px;order:2;"  onclick="AddColumn(event)">➕</button>
     </div>
   </body>
 </html>
