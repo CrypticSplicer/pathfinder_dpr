@@ -249,7 +249,11 @@
     
     <template id="comparison-column-template">
       <div class="comparison-column">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
+        <div class="button-container close-container">
+          <button type="button" class="btn btn-default btn-circle add-damage btn-absolute" onclick="CloseGreatGrandParent(event)">
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
         <span align="center">Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
         <div class="comparison-stats">
           <span>AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
