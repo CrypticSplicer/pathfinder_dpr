@@ -24,6 +24,9 @@
       button {
         outline: none;
       }
+      .btn:focus {
+        outline: none !important;
+      }
       
       html, body {margin: 0; height: 100%; overflow: hidden}
       body {
@@ -149,36 +152,43 @@
        box-shadow: none;
      }
       
-     .btn-absolute {
-       position: absolute;
+      .button-container {
+        position: relative;
+        height: 0px;
+        width: 0px;
       }
-     .btn-circle.btn-xl {
-          width: 70px;
-          height: 70px;
-          padding: 10px 16px;
-          border-radius: 35px;
-          font-size: 24px;
-          line-height: 1.33;
+      .button-container.plus-container {
+        transform: translate(-20px);
+      }
+      
+      .btn-absolute {
+        position: absolute;
+      }
+      
+      .btn-circle {
+        width: 25px;
+        height: 25px;
+        padding: 6px 0px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.42857;
+      }
+      .btn-circle.btn-xl {
+        width: 70px;
+        height: 70px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 0;
       }
 
-      .btn-circle {
-          width: 30px;
-          height: 30px;
-          padding: 6px 0px;
-          border-radius: 15px;
-          text-align: center;
-          font-size: 12px;
-          line-height: 1.42857;
-      }
       .add-column {
-       order: 2;
-       margin: 20px;
-       position: unset;
-     }
+        order: 2;
+        margin: 20px;
+        position: unset;
+      }
       
-     .close-container {
-       position: relative;
-     }
      .close-button {
        position: absolute;
        top: -10px;
@@ -252,8 +262,8 @@
         </div>
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
-          <div style="position:relative;right:20px;">
-            <button type="button" class="btn btn-default btn-circle add-damage" onclick="AddAttack(event)">
+          <div class="button-container plus-container">
+            <button type="button" class="btn btn-default btn-circle add-damage btn-absolute" onclick="AddAttack(event)">
               <i class="fa fa-plus"></i>
             </button>
           </div>
