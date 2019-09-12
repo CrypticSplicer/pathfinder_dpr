@@ -239,7 +239,11 @@
         </div>
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
-          <div style="position:relative;right:20px;"><button class="plus-button add-damage" onclick="AddAttack(event)"><span style="margin-left:-4px;">➕</span></button></div>
+          <div style="position:relative;right:20px;">
+            <button type="button" class="btn btn-default btn-circle add-damage" onclick="AddAttack(event)">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
         </div>
       </div>
     </template>
@@ -399,7 +403,9 @@
       <button type="button" class="flat-button" onclick="AverageDPR()">Average DPR</button>
     </div>
     <div class="main">
-      <button type="button" class="plus-button add-column"  onclick="AddColumn(event)">➕</button>
+      <button type="button" class="btn btn-default btn-circle btn-xl add-column" onclick="AddColumn(event)">
+        <i class="fa fa-plus"></i>
+      </button>
       <comparison-column></comparison-column>
     </div>
   </body>
