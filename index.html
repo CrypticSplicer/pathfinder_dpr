@@ -127,30 +127,30 @@
         border-radius: 20px;
         padding: 10px;
       }
-     .flat-button {
-       position: relative;
-       vertical-align: top;
-       min-width: fit-content;
-       min-height: fit-content;
-       max-height: 60px;
-       padding: 0px 5px;
-       font-size: 16px;
-       color: white;
-       text-align: center;
-       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-       background: #d35400;
-       border: 0;
-       border-bottom: 2px solid #c54e00;
-       cursor: pointer;
-       -webkit-box-shadow: inset 0 -2px #c54e00;
-       box-shadow: inset 0 -2px #c54e00;
-     }
-     .flat-button:active {
-       top: 1px;
-       outline: none;
-       -webkit-box-shadow: none;
-       box-shadow: none;
-     }
+      .flat-button {
+        position: relative;
+        vertical-align: top;
+        min-width: fit-content;
+        min-height: fit-content;
+        max-height: 60px;
+        padding: 0px 5px;
+        font-size: 16px;
+        color: white;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+        background: #d35400;
+        border: 0;
+        border-bottom: 2px solid #c54e00;
+        cursor: pointer;
+        -webkit-box-shadow: inset 0 -2px #c54e00;
+        box-shadow: inset 0 -2px #c54e00;
+      }
+      .flat-button:active {
+        top: 1px;
+        outline: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
       
       .button-container {
         position: relative;
@@ -160,7 +160,18 @@
       .button-container.plus-container {
         transform: translate(-20px);
       }
+      .button-container.close-container {
+        margin-left: auto;
+        right: 25px;
+        top: -8px;
+      }
       
+      .btn-close {
+        background: transparent;
+        color: white;
+        border: 0px;
+      }
+
       .btn-absolute {
         position: absolute;
       }
@@ -188,19 +199,7 @@
         margin: 20px;
         position: unset;
       }
-      
-     .close-button {
-       position: absolute;
-       top: -10px;
-       right: -5px;
-       height: 2.2em;
-       width: 2.2em;
-       font-weight: bold;
-       border: 0px;
-       background-color: transparent;
-       font-size: 12px;
-       outline: none;
-     }
+
      input[type=number]::-webkit-inner-spin-button, 
      input[type=number]::-webkit-outer-spin-button { 
         -webkit-appearance: none; 
@@ -231,7 +230,11 @@
     
     <template id="attack-card-template">
       <div class="attack-card damage-source">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
+        <div class="button-container close-container">
+          <button type="button" class="btn btn-default btn-circle btn-close btn-absolute" onclick="CloseGreatGrandParent(event)">
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
         <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -240,7 +243,11 @@
     
     <template id="spell-card-template">
       <div class="spell-card damage-source">
-        <div class="close-container"><button class="close-button" onclick="CloseGreatGrandParent(event)">✖</button></div>
+        <div class="button-container close-container">
+          <button type="button" class="btn btn-default btn-circle btn-close btn-absolute" onclick="CloseGreatGrandParent(event)">
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
         <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -250,7 +257,7 @@
     <template id="comparison-column-template">
       <div class="comparison-column">
         <div class="button-container close-container">
-          <button type="button" class="btn btn-default btn-circle add-damage btn-absolute" onclick="CloseGreatGrandParent(event)">
+          <button type="button" class="btn btn-default btn-circle btn-close btn-absolute" onclick="CloseGreatGrandParent(event)">
             <i class="fa fa-close"></i>
           </button>
         </div>
