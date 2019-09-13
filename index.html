@@ -181,6 +181,12 @@
         color: white;
       }
 
+      .btn-plus:active,
+      .btn-plus:hover,
+      .btn-plus:focus {
+        color: black;
+      }
+      
       .btn-absolute {
         position: absolute;
       }
@@ -283,7 +289,7 @@
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
           <div class="button-container plus-container">
-            <button type="button" class="btn btn-default btn-circle add-damage btn-absolute" onclick="AddAttack(event)">
+            <button type="button" class="btn btn-default btn-circle btn-plus btn-absolute" onclick="AddAttack(event)">
               <i class="fa fa-plus"></i>
             </button>
           </div>
@@ -446,7 +452,7 @@
       <button type="button" class="flat-button" onclick="AverageDPR()">Average DPR</button>
     </div>
     <div class="main">
-      <button type="button" class="btn btn-default btn-circle btn-xl add-column" onclick="AddColumn(event)">
+      <button type="button" class="btn btn-default btn-circle btn-xl btn-plus add-column" onclick="AddColumn(event)">
         <i class="fa fa-plus"></i>
       </button>
       <comparison-column></comparison-column>
