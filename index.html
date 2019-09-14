@@ -238,9 +238,6 @@
       
       /* Dropdown Button */
       .dropbtn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 16px;
         font-size: 16px;
         border: none;
       }
@@ -259,14 +256,15 @@
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
+        top: 20px;
+        color: black
       }
 
       /* Links inside the dropdown */
-      .dropdown-content a {
+      .dropdown-content button {
         color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
+        width: 100%;
+        border: none;
       }
 
       /* Change color of dropdown links on hover */
@@ -274,9 +272,6 @@
 
       /* Show the dropdown menu on hover */
       .dropdown:hover .dropdown-content {display: block;}
-
-      /* Change the background color of the dropdown button when the dropdown content is shown */
-      .dropdown:hover .dropbtn {background-color: #3e8e41;}
     </style>
     
     <title>Pathfinder 2E DPR</title>
@@ -319,7 +314,7 @@
             <i class="fa fa-close"></i>
           </button>
         </div>
-        <span align="center">Name: <input type="text" size="20" maxlength="20" class="comparison-name"></span>
+        <span align="center"><input type="text" size="20" maxlength="20" class="comparison-name" placeholder="Name"></span>
         <div class="comparison-stats">
           <span>AC: <input type="text" size="1" maxlength="2" class="comparison-ac"></span>
           <span>Ref: <input type="text" size="1" maxlength="2" class="comparison-ref"></span>
