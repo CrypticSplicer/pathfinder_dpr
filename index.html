@@ -255,13 +255,8 @@
         background-color: whitesmoke;
         min-width: 160px;
         z-index: 1;
-        top: 20px;
-        color: black;
         grid-gap: 5px;
         border-radius: 15px;
-        -webkit-background-clip: padding-box; 
-        -moz-background-clip: padding; 
-        background-clip: padding-box;
       }
 
       /* Links inside the dropdown */
@@ -270,6 +265,12 @@
         width: 100%;
         border: none;
         background-color: whitesmoke;
+      }
+      .dropdown-content button:first-child {
+        border-radius: 15px 15px 0px 0px;
+      }
+      .dropdown-content button:last-child {
+        border-radius: 0px 0px 15px 15px;
       }
 
       /* Change color of dropdown links on hover */
