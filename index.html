@@ -256,7 +256,6 @@
         background-color: whitesmoke;
         min-width: 160px;
         z-index: 1;
-        grid-gap: 5px;
         border-radius: 15px;
       }
 
@@ -279,6 +278,21 @@
 
       /* Show the dropdown menu on hover */
       .dropdown:hover .dropdown-content {display: grid;}
+      
+      select.inline-selector {
+        width: max-content;
+        border-radius: 5px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+      }
+      select.inline-selector option {
+        background-color: whitesmoke;
+        color: black;
+      }
+      select.inline-selector option:hover {
+        background-color: white;
+      }
     </style>
     
     <title>Pathfinder 2E DPR</title>
@@ -307,7 +321,14 @@
             <i class="fa fa-close"></i>
           </button>
         </div>
-        <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
+        <div>
+          <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"><span>
+          <select class="inline-selector">
+            <option value="ref" selected="">Ref</option>
+            <option value="fort">Fort</option>
+            <option value="will">Will</option>
+          </select>
+        </div>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="crit">Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         <span class="miss">Miss Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
@@ -471,6 +492,19 @@
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
       }
       
+      function SpellAverage(ref, fort, will, spell_card) {
+        let spell_save = Number(spell_card.getElementsByClassName("spell-save")[0].value);
+        let adjusted_check = spell_save - attack_bonus;
+        let percentiles = SuccessPercentiles(adjusted_check);
+        let hit_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("damage"))));
+        let crit_damage = (hit_damage * 2) + Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("crit"))));
+        let miss_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss"))));
+        let fumble_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble"))));
+        
+        return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
+          miss_damage * percentiles[2] + fumble_damage * percentiles[3];
+      }
+      
       function AverageDPR() {
         Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
           let ac = Number(column.getElementsByClassName("comparison-ac")[0].value);
@@ -480,6 +514,8 @@
           let damage = sum(Array.from(column.getElementsByClassName("damage-source")).map(x => {
             if (x.classList.contains("attack-card")) {
               return AttackAverage(ac, x);
+            } else if (x.classList.contains("spell-card")) {
+              return SpellAverage(ref, fort, will, x);
             }
             return 0;
           }));
