@@ -488,6 +488,9 @@
         let miss_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss"))));
         let fumble_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble"))));
         
+        console.log(percentiles);
+        console.log(crit_damage, hit_damage, miss_damage, fumble_damage);
+        console.log("******")
         return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
       }
@@ -496,6 +499,7 @@
         let attack_bonus = Number(attack_card.getElementsByClassName("attack-bonus")[0].value);
         let adjusted_check = Number(ac) - attack_bonus;
 
+        console.log("Check: ", adjusted_check);
         return DamageAverage(adjusted_check, attack_card)
       }
       
@@ -516,6 +520,7 @@
             break;
         }
 
+        console.log("Check: ", adjusted_check);
         return DamageAverage(adjusted_check, attack_card)
       }
       
@@ -527,8 +532,10 @@
           let will = Number(column.getElementsByClassName("comparison-will")[0].value);
           let damage = sum(Array.from(column.getElementsByClassName("damage-source")).map(x => {
             if (x.classList.contains("attack-card")) {
+              console.log("Attack card average!");
               return AttackAverage(ac, x);
             } else if (x.classList.contains("spell-card")) {
+              console.log("Attack card average!");
               return SpellAverage(ref, fort, will, x);
             }
             return 0;
