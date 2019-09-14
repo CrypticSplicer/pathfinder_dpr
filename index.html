@@ -487,14 +487,12 @@
       
       function AddAttack(event) {
         let card = document.createElement("attack-card");
-        event.target.closest(".comparison-column-main").appendChild(card);
+        event.target.closest(".comparison-column").getElementsByClassName("comparison-column-main")[0].appendChild(card);
       }
       
       function AddSpell(event) {
         let card = document.createElement("spell-card");
-        console.log(event.target);
-        console.log(event.target.closest(".comparison-column-main"));
-        event.target.closest(".comparison-column-main").appendChild(card);
+        event.target.closest(".comparison-column").getElementsByClassName("comparison-column-main")[0].appendChild(card);
       }
       
       function AddColumn(event) {
