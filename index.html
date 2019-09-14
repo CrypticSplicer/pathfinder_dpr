@@ -239,10 +239,10 @@
       input[maxlength="2"] {
         width: 1.2em;
         height: 1em;
+        font-size: 16px;
       }
       input.die-number {
         text-align: right;
-        font-size: 16px;
       }
       
       /* Dropdown Button */
@@ -538,7 +538,7 @@
         let targets = Number(spell_card.getElementsByClassName("spell-targets")[0].value);
 
         console.log("Check", adjusted_check, ", targets: ", targets);
-        return DamageAverage(adjusted_check, attack_card) * targets;
+        return DamageAverage(adjusted_check, spell_card) * targets;
       }
       
       function AverageDPR() {
