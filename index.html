@@ -428,8 +428,6 @@
         let miss_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("miss"))));
         let fumble_damage = Number(AverageDiceExpressionDamage(Array.from(attack_card.getElementsByClassName("fumble"))));
         
-        console.log(percentiles);
-        console.log("Crit: ", crit_damage, ", Hit: ", hit_damage, ", Miss: ", miss_damage, ", Fumble: ", fumble_damage);
         return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
       }
@@ -457,6 +455,8 @@
       
       function AddSpell(event) {
         let card = document.createElement("spell-card");
+        console.log(event.target);
+        console.log(event.target.closest(".comparison-column-main"));
         event.target.closest(".comparison-column-main").appendChild(card);
       }
       
