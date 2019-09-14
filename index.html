@@ -265,7 +265,8 @@
         </div>
         <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         <span class="damage">Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-        <span class="crit">Bonus Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+        <span class="crit">Crit Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+        <span class="miss">Miss Damage: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
       </div>
     </template>
     
@@ -290,8 +291,17 @@
           <span>Average Damage: <span class="average-damage">0</span></span>
           <div class="button-container plus-container">
             <button type="button" class="btn btn-default btn-circle btn-plus btn-absolute" onclick="AddAttack(event)">
-              <i class="fa fa-plus"></i>
+
             </button>
+            <div class="button-container plus-container dropdown">
+              <button class="btn btn-default btn-circle btn-plus btn-absolute dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fa fa-plus"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><button onclick="AddAttack(event)">Attack</button></li>
+                <li><button onclick="AddSpell(event)">Spell</button></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -347,6 +357,12 @@
           this.removeChild(this.firstChild);
         }
       });
+      
+      document.addEventListener('focus', (event) => {
+        if (event.target.tagName == "INPUT") {
+          AverageDPR();
+        }
+      }, true);
       
       function sum(list) {
         return list.reduce((a, b) => parseFloat(a) + parseFloat(b));
@@ -430,12 +446,17 @@
       
       function AddAttack(event) {
         let card = document.createElement("attack-card");
-        event.target.parentElement.parentElement.parentElement.getElementsByClassName("comparison-column-main")[0].appendChild(card);
+        event.target.closest(".comparison-column-main")[0].appendChild(card);
+      }
+      
+      function AddSpell(event) {
+        let card = document.createElement("spell-card");
+        event.target.closest(".comparison-column-main")[0].appendChild(card);
       }
       
       function AddColumn(event) {
         let column = document.createElement("comparison-column");
-        event.target.parentElement.parentElement.getElementsByClassName("main")[0].appendChild(column);
+        event.target.closest(".main")[0].appendChild(column);
       }
       
       function CloseGreatGrandParent(event) {
