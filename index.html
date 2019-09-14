@@ -308,10 +308,14 @@
             <i class="fa fa-close"></i>
           </button>
         </div>
-        <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
-        <span class="crit">Crit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-        <span class="hit">Hit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-        <span class="miss">Miss: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+        <div class="card-header">
+          <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
+        </div>
+        <div class="card-main">
+          <span class="crit">Crit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="hit">Hit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="miss">Miss: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+        </div>
       </div>
     </template>
     
@@ -322,18 +326,23 @@
             <i class="fa fa-close"></i>
           </button>
         </div>
-        <div>
-          <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="spell-save"><span>
-          <select class="inline-selector save-selector">
-            <option value="ref" selected="">Ref</option>
-            <option value="fort">Fort</option>
-            <option value="will">Will</option>
-          </select>
+        <div class="card-header">
+          <div>
+            <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="spell-save"><span>
+            <select class="inline-selector save-selector">
+              <option value="ref" selected="">Ref</option>
+              <option value="fort">Fort</option>
+              <option value="will">Will</option>
+            </select>
+          </div>
+          <span>Targets: <input type="number" size="1" maxlength="2" width="min" class="spell-targets" value="1"><span>
         </div>
-        <span class="crit">Crit Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-        <span class="hit">Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-        <span class="miss">Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-        <span class="fumble">Crit Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+        <div class="card-main">
+          <span class="crit">Crit Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="hit">Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="miss">Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="fumble">Crit Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+        </div>
       </div>
     </template>
     
@@ -488,6 +497,9 @@
         let miss_damage = Number(AverageDiceExpressionDamage(Array.from(card.getElementsByClassName("miss"))));
         let fumble_damage = Number(AverageDiceExpressionDamage(Array.from(card.getElementsByClassName("fumble"))));
 
+        console.log(percentiles);
+        console.log(crit_damage, hit_damage, miss_damage, fumble_damage);
+        console.log("****");
         return crit_damage * percentiles[0] + hit_damage * percentiles[1] +
           miss_damage * percentiles[2] + fumble_damage * percentiles[3];
       }
@@ -496,7 +508,7 @@
         let attack_bonus = Number(attack_card.getElementsByClassName("attack-bonus")[0].value);
         let adjusted_check = Number(ac) - attack_bonus;
 
-        return DamageAverage(adjusted_check, attack_card)
+        return DamageAverage(adjusted_check, attack_card);
       }
       
       function SpellAverage(ref, fort, will, spell_card) {
@@ -515,8 +527,10 @@
           default:
             break;
         }
+        let targets = Number(spell_card.getElementsByClassName("spell-targets")[0].value);
 
-        return DamageAverage(adjusted_check, attack_card)
+        console.log("Check", adjusted_check, ", targets: ", targets);
+        return DamageAverage(adjusted_check, attack_card) * targets;
       }
       
       function AverageDPR() {
