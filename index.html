@@ -258,7 +258,7 @@
         z-index: 1;
         top: 20px;
         color: black;
-        list-style: none;
+        grid-gap: 5px;
       }
 
       /* Links inside the dropdown */
@@ -269,10 +269,10 @@
       }
 
       /* Change color of dropdown links on hover */
-      .dropdown-content a:hover {background-color: white;}
+      .dropdown-content button:hover {background-color: white;}
 
       /* Show the dropdown menu on hover */
-      .dropdown:hover .dropdown-content {display: block;}
+      .dropdown:hover .dropdown-content {display: grid;}
     </style>
     
     <title>Pathfinder 2E DPR</title>
@@ -331,10 +331,10 @@
             <button class="btn btn-default btn-circle btn-plus btn-absolute dropbtn" type="button">
               <i class="fa fa-plus"></i>
             </button>
-            <ul class="dropdown-content">
-              <li><button onclick="AddAttack(event)">Attack</button></li>
-              <li><button onclick="AddSpell(event)">Spell</button></li>
-            </ul>
+            <div class="dropdown-content">
+              <button onclick="AddAttack(event)">Attack</button>
+              <button onclick="AddSpell(event)">Spell</button>
+            </dive>
           </div>
         </div>
       </div>
