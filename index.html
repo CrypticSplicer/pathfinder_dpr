@@ -38,9 +38,9 @@
         background-image: url(https://www.transparenttextures.com/patterns/light-paper-fibers.png);
         display: grid;
         grid:
-          "header header" 60px
-          "sidebar main" 1fr
-          / 200px 1fr;
+          "header" 60px
+          "main" 1fr
+          / 1fr;
       }
       
       .header {
@@ -290,9 +290,6 @@
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0</span></span>
           <div class="button-container plus-container">
-            <button type="button" class="btn btn-default btn-circle btn-plus btn-absolute" onclick="AddAttack(event)">
-
-            </button>
             <div class="button-container plus-container dropdown">
               <button class="btn btn-default btn-circle btn-plus btn-absolute dropdown-toggle" type="button" data-toggle="dropdown">
                 <i class="fa fa-plus"></i>
@@ -474,9 +471,6 @@
   <body>
     <div class="header">
       <h1 style="margin-left: 2vw;">Pathfinder DPR</h1>
-    </div>
-    <div class="sidebar">
-      <button type="button" class="flat-button" onclick="AverageDPR()">Average DPR</button>
     </div>
     <div class="main">
       <button type="button" class="btn btn-default btn-circle btn-xl btn-plus add-column" onclick="AddColumn(event)">
