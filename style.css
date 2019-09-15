@@ -1,0 +1,292 @@
+:root {
+  --dark-text-color: white;
+  --dark-background-color: #5D5C61;
+  --dark-primary-color: #379683;
+  --dark-secondary-color: #B1A296;
+  --dark-primary-accent: #7395AE;
+  --dark-secondary-accent: #557A95;
+}
+
+button * {
+  pointer-events: none;
+}
+button {
+  outline: none;
+}
+.button:focus {
+  outline: none !important;
+}
+
+html, body {margin: 0; height: 100%; overflow: hidden}
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  color: var(--dark-text-color);
+  background-color: #b3a27f;
+  background-image: url(https://www.transparenttextures.com/patterns/light-paper-fibers.png);
+  display: grid;
+  grid:
+    "header" 60px
+    "main" 1fr
+    / 1fr;
+}
+
+.header {
+  max-height: 60px;
+  min-height: fit-content;
+  grid-area: header;
+  background: rgba(244,240,238,.75);
+  border-bottom: 4px solid whitesmoke;
+  box-shadow: 0px 2px 5px grey;
+  color: Black;
+  text-shadow:
+     -1px -1px 0 White,
+      1px -1px 0 White,
+      -1px 1px 0 White,
+       1px 1px 0 White;
+}
+.sidebar {
+  grid-area: sidebar;
+  display: grid;
+  align-content: start;
+  justify-content: center;
+  grid-gap: 15px;
+  margin: 20px
+}
+
+.main {
+  height: 100%;
+  grid-area: main;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.comparison-stats {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  justify-content: space-between;
+}
+
+.footer {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  padding: 0px 10px;
+}
+
+.comparison-column {
+  height: fit-content;
+  width: fit-content;
+  min-width: 300px;
+  max-width: 600px;
+  background: rgb(89,77,73);
+  background: linear-gradient(120deg, rgba(89,77,73,1) 25%, rgba(105,73,57,1) 94%);
+  display: grid;
+  grid-auto-rows: min-content;
+  align-content: center;
+  grid-gap: 5px;
+  border-radius: 20px;
+  padding: 10px;
+  order: 1;
+}
+
+comparison-column ~ comparison-column {
+  margin-left: 40px;
+}
+
+.comparison-column-main {
+  height: fit-content;
+  width: 100%;
+  display: grid;
+  grid-auto-rows: min-content;
+  align-content: center;
+  grid-gap: 5px;
+}
+.damage-source {
+  height: fit-content;
+  max-width: 600px;
+  background: rgb(193,139,112);
+  background: linear-gradient(248deg, rgba(193,139,112,1) 49%, rgba(186,101,72,1) 96%);
+  display: grid;
+  grid-auto-rows: min-content;
+  align-content: center;
+  border-radius: 20px;
+  padding: 10px;
+}
+.damage-source div {
+  display: grid;
+  grid-auto-rows: min-content;
+  align-content: center;
+}
+.card-main {
+  margin-top: 5px;
+}
+.flat-button {
+  position: relative;
+  vertical-align: top;
+  min-width: fit-content;
+  min-height: fit-content;
+  max-height: 60px;
+  padding: 0px 5px;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #d35400;
+  border: 0;
+  border-bottom: 2px solid #c54e00;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 -2px #c54e00;
+  box-shadow: inset 0 -2px #c54e00;
+}
+.flat-button:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.button-container {
+  position: relative;
+  height: 0px;
+  width: 0px;
+}
+.button-container.plus-container {
+  transform: translate(-20px);
+}
+.button-container.close-container {
+  margin-left: auto;
+  right: 25px;
+  top: -8px;
+}
+
+.btn-close {
+  background: transparent;
+  color: whitesmoke;
+  border: 0px;
+}
+.btn-close:active,
+.btn-close:hover,
+.btn-close:focus {
+  border: 0px;
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: white;
+}
+
+.btn-plus:active,
+.btn-plus:hover,
+.btn-plus:focus {
+  color: black;
+}
+
+.btn-absolute {
+  position: absolute;
+}
+
+.btn-circle {
+  width: 25px;
+  height: 25px;
+  padding: 4px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 0;
+}
+.btn-circle.btn-xl {
+  width: 50px;
+  height: 50px;
+  padding: 10px 15px;
+  border-radius: 35px;
+  font-size: 24px;
+  line-height: 0;
+}
+
+.add-column {
+  order: 2;
+  margin: 20px;
+  position: unset;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--dark-secondary-accent);
+  outline: none;
+  font-family: 'Open Sans', monospace;
+  font-weight: bold;
+  color: white;
+}
+input[maxlength="2"] {
+  width: 1.2em;
+  height: 1em;
+  font-size: 16px;
+}
+input.die-number {
+  text-align: right;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: whitesmoke;
+  min-width: 160px;
+  z-index: 1;
+  border-radius: 15px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  color: black;
+  width: 100%;
+  border: none;
+  background-color: whitesmoke;
+}
+.dropdown-content button:first-child {
+  border-radius: 15px 15px 0px 0px;
+}
+.dropdown-content button:last-child {
+  border-radius: 0px 0px 15px 15px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {background-color: white;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: grid;}
+
+select.inline-selector {
+  width: max-content;
+  border-radius: 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+select.inline-selector option {
+  background-color: whitesmoke;
+  color: black;
+}
+select.inline-selector option:hover {
+  background-color: white;
+}
