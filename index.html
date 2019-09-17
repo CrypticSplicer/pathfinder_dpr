@@ -27,9 +27,9 @@
           <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         </div>
         <div class="card-main">
-          <span class="crit">Crit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="hit">Hit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="miss">Miss: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage" data-name="crit">Crit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage" data-name="hit">Hit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage" data-name="miss">Miss: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         </div>
       </div>
     </template>
@@ -45,7 +45,7 @@
           <div>
             <span>Spell Save: <input type="number" size="1" maxlength="2" width="min" class="spell-save"><span>
             <select class="inline-selector save-selector">
-              <option value="ref" selected="">Ref</option>
+              <option value="ref" selected>Ref</option>
               <option value="fort">Fort</option>
               <option value="will">Will</option>
             </select>
@@ -53,10 +53,10 @@
           <span>Targets: <input type="number" size="1" maxlength="2" width="min" class="spell-targets" value="1"><span>
         </div>
         <div class="card-main">
-          <span class="crit">Crit Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="hit">Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="miss">Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="fumble">Crit Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage" data-name="fumble">Crit Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage" data-name="miss">Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage" data-name="hit">Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage" data-name="crit">Crit Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         </div>
       </div>
     </template>

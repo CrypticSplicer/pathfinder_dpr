@@ -1,0 +1,28 @@
+{
+  "name": "pathfinder_dpr",
+  "version": "1.0.0",
+  "description": "Calcuate average damage per round for pathfinder 2e characters.",
+  "main": "index.html",
+  "dependencies": {
+    "cypress": "^3.4.1"
+  },
+  "devDependencies": {
+    "jasmine": "^3.4.0",
+    "jasmine-jquery": "^2.1.1",
+    "jsdom": "^15.1.1",
+    "underscore": "^1.9.1"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrypticSplicer/pathfinder_dpr.git"
+  },
+  "author": "Frazer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CrypticSplicer/pathfinder_dpr/issues"
+  },
+  "homepage": "https://github.com/CrypticSplicer/pathfinder_dpr#readme"
+}
