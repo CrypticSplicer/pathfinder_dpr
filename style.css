@@ -116,7 +116,8 @@ comparison-column ~ comparison-column {
   border-radius: 20px;
   padding: 10px;
 }
-.damage-source div {
+.damage-source .card-header,
+.damage-source .card-main {
   display: grid;
   grid-auto-rows: min-content;
   align-content: center;

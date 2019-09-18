@@ -188,25 +188,6 @@ function AverageDPR() {
   });
 }
 
-function AddAttack(event) {
-  let card = document.createElement("attack-card");
-  event.target.closest(".comparison-column").getElementsByClassName("comparison-column-main")[0].appendChild(card);
-}
-
-function AddSpell(event) {
-  let card = document.createElement("spell-card");
-  event.target.closest(".comparison-column").getElementsByClassName("comparison-column-main")[0].appendChild(card);
-}
-
-function AddColumn(event) {
-  let column = document.createElement("comparison-column");
-  event.target.closest(".main").appendChild(column);
-}
-
-function CloseGreatGrandParent(event) {
-  event.target.parentElement.parentElement.parentElement.parentElement.removeChild(
-    event.target.parentElement.parentElement.parentElement);
-}
 
 module.exports = {
   ParseDamage: ParseDamage,

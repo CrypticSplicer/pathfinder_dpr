@@ -18,10 +18,14 @@
 
     <template id="attack-card-template">
       <div class="attack-card damage-source">
-        <div class="button-container close-container">
-          <button type="button" class="btn btn-default btn-circle btn-close btn-absolute" onclick="CloseGreatGrandParent(event)">
-            <i class="fa fa-close"></i>
+        <div class="button-container close-container dropdown">
+          <button class="btn btn-default btn-circle btn-close btn-absolute dropbtn" type="button">
+            <i class="fa fa-cog"></i>
           </button>
+          <div class="dropdown-content">
+            <button onclick="CloseGreatGreatGrandParent(event)">Close</button>
+            <button onclick="DuplicateAttack(event)">Duplicate</button>
+          </div>
         </div>
         <div class="card-header">
           <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
@@ -36,10 +40,14 @@
 
     <template id="spell-card-template">
       <div class="spell-card damage-source">
-        <div class="button-container close-container">
-          <button type="button" class="btn btn-default btn-circle btn-close btn-absolute" onclick="CloseGreatGrandParent(event)">
-            <i class="fa fa-close"></i>
+        <div class="button-container close-container dropdown">
+          <button class="btn btn-default btn-circle btn-close btn-absolute dropbtn" type="button">
+            <i class="fa fa-cog"></i>
           </button>
+          <div class="dropdown-content">
+            <button onclick="CloseGreatGreatGrandParent(event)">Close</button>
+            <button onclick="DuplicateSpell(event)">Duplicate</button>
+          </div>
         </div>
         <div class="card-header">
           <div>
@@ -63,10 +71,14 @@
 
     <template id="comparison-column-template">
       <div class="comparison-column">
-        <div class="button-container close-container">
-          <button type="button" class="btn btn-default btn-circle btn-close btn-absolute" onclick="CloseGreatGrandParent(event)">
-            <i class="fa fa-close"></i>
+        <div class="button-container close-container dropdown">
+          <button class="btn btn-default btn-circle btn-close btn-absolute dropbtn" type="button">
+            <i class="fa fa-cog"></i>
           </button>
+          <div class="dropdown-content">
+            <button onclick="CloseGreatGreatGrandParent(event)">Close</button>
+            <button onclick="DuplicateColumn(event)">Duplicate</button>
+          </div>
         </div>
         <span align="center"><input type="text" size="20" maxlength="20" class="comparison-name" placeholder="Name"></span>
         <div class="comparison-stats">
