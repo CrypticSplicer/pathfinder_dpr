@@ -1,5 +1,5 @@
 function Sum(list) {
-  return list.reduce((a, b) => Number(a) + Number(b));
+  return list.reduce((a, b) => Number(a) + Number(b), 0);
 }
 
 function AdjustedCheckSuccess(adjustedCheck, roll) {
@@ -187,7 +187,6 @@ function AverageDPR() {
     column.getElementsByClassName("average-damage")[0].innerHTML = +damage.toFixed(2);
   });
 }
-
 
 module.exports = {
   ParseDamage: ParseDamage,

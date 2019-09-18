@@ -105,10 +105,11 @@
       </div>
     </template>
 
-    <!-- Templates have to be loaded before the template library. -->
+      <!-- Templates have to be loaded before the template library. -->
+    <script language="javascript"> const module = {}; </script>
     <script src="https://polyfill.io/v3/polyfill.min.js"></script>
-    <script src="template_listener.js"></script>
     <script src="dpr.js"></script>
+    <script src="templates.js"></script>
   </head>
   <body>
     <div class="header">
@@ -120,5 +121,7 @@
       </button>
       <comparison-column></comparison-column>
     </div>
+
+    <script src="listeners.js"></script>
   </body>
 </html>

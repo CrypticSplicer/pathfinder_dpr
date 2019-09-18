@@ -7,9 +7,11 @@ customElements.define('dice-span', class extends HTMLElement {
     if (!this.hasChildNodes()) {
       this.appendChild(dice_span.content.cloneNode(true));
     }
+    AverageDPR();
   }
   disconnectedCallback() {
     this.removeChild(this.firstChild);
+    AverageDPR();
   }
 });
 
@@ -22,9 +24,11 @@ customElements.define('attack-card', class extends HTMLElement {
     if (!this.hasChildNodes()) {
       this.appendChild(attack_card.content.cloneNode(true));
     }
+    AverageDPR();
   }
   disconnectedCallback() {
     this.removeChild(this.firstChild);
+    AverageDPR();
   }
 });
 
@@ -37,9 +41,11 @@ customElements.define('spell-card', class extends HTMLElement {
     if (!this.hasChildNodes()) {
       this.appendChild(spell_card.content.cloneNode(true));
     }
+    AverageDPR();
   }
   disconnectedCallback() {
     this.removeChild(this.firstChild);
+    AverageDPR();
   }
 });
 
