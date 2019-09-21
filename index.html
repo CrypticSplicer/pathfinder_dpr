@@ -22,8 +22,8 @@
 
     <template id="attack-card-template">
       <div class="attack-card damage-source">
-        <div class="button-container close-container dropdown">
-          <button class="btn btn-default btn-circle btn-close btn-absolute dropbtn" type="button">
+        <div class="button-container setting-container right-hand dropdown">
+          <button class="btn btn-circle btn-setting dropbtn" type="button">
             <i class="fa fa-cog"></i>
           </button>
           <div class="dropdown-content">
@@ -126,8 +126,8 @@
 
     <template id="spell-card-template">
       <div class="spell-card damage-source">
-        <div class="button-container close-container dropdown">
-          <button class="btn btn-default btn-circle btn-close btn-absolute dropbtn" type="button">
+        <div class="button-container setting-container right-hand dropdown">
+          <button class="btn btn-circle btn-setting dropbtn" type="button">
             <i class="fa fa-cog"></i>
           </button>
           <div class="dropdown-content">
@@ -239,8 +239,8 @@
 
     <template id="comparison-column-template">
       <div class="comparison-column">
-        <div class="button-container close-container dropdown">
-          <button class="btn btn-default btn-circle btn-close btn-absolute dropbtn" type="button">
+        <div class="button-container setting-container right-hand dropdown">
+          <button class="btn btn-circle btn-setting dropbtn" type="button">
             <i class="fa fa-cog"></i>
           </button>
           <div class="dropdown-content">
@@ -260,8 +260,8 @@
         </div>
         <div class="footer">
           <span>Average Damage: <span class="average-damage">0.00</span></span>
-          <div class="button-container plus-container dropdown">
-            <button class="btn btn-default btn-circle btn-plus btn-absolute dropbtn" type="button">
+          <div class="button-container plus-container right-hand dropdown">
+            <button class="btn btn-circle btn-plus dropbtn" type="button">
               <i class="fa fa-plus"></i>
             </button>
             <div class="dropdown-content">
@@ -284,7 +284,7 @@
       <h1 style="margin-left: 2vw;">Pathfinder DPR</h1>
     </div>
     <div class="main">
-      <button type="button" class="btn btn-default btn-circle btn-xl btn-plus add-column" onclick="AddColumn(event)">
+      <button type="button" class="btn btn-circle btn-xl btn-plus add-column" onclick="AddColumn(event)">
         <i class="fa fa-plus"></i>
       </button>
       <comparison-column></comparison-column>
