@@ -150,7 +150,7 @@ function AttackAverage(ac, ref, fort, will, attack) {
     let miss = DamageAverage(attack.damage.get('miss'));
     let fumble = attack.damage.has('fumble') ?
       DamageAverage(attack.damage.get('fumble')) :
-      (miss * 2) + DamageAverage(attack.damage.get('fumbleBonus'));
+      (miss * 2) + DamageAverage(attack.damage.get('fumble-bonus'));
     let hit = attack.damage.has('hit') ?
       DamageAverage(attack.damage.get('hit')) :
       miss / 2.0;
@@ -166,19 +166,6 @@ function AttackAverage(ac, ref, fort, will, attack) {
 function ColumnAverage(column) {
   return Sum(column.attacks.map(x => {
     return AttackAverage(column.ac, column.ref, column.fort, column.will, x);
-  }));
-}
-
-function DiceAverage(dice) {
-  return Sum(dice.map(x => {
-    let dieNumber = x.getElementsByClassName("die-number") ?
-      Number(x.getElementsByClassName("die-number")[0].value) : 0;
-    let dieSize = x.getElementsByClassName("die-size") ?
-      Number(x.getElementsByClassName("die-size")[0].value) : 0;
-    if (dieNumber == 0 || dieSize == 0) {
-      return 0;
-    }
-    return dieNumber * ((dieSize / 2.0) + 0.5);
   }));
 }
 

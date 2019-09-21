@@ -103,11 +103,11 @@ function DuplicateColumn(event) {
   event.target.closest(".main").appendChild(column);
 }
 
-function CreateDiceExpression(type, dataName, textExpression, numDiceTypes, hasStatic) {
+function CreateDiceExpression(type, prefix, dataName, textExpression, numDiceTypes, hasStatic) {
   let output = document.createElement('span');
   output.classList.add('damage');
-  output.classList.add('damage-type-' + type);
-  output.append(document.createTextNode(type.charAt(0).toUpperCase() + type.slice(1) + ': ' + textExpression));
+  output.classList.add(type);
+  output.append(document.createTextNode(prefix + ': ' + textExpression));
 
   if (!dataName) {
     return output;
@@ -136,13 +136,16 @@ function CreateDiceExpression(type, dataName, textExpression, numDiceTypes, hasS
 }
 
 function UpdateDiceExpression(inputNode) {
-  const damageType = Array.from(inputNode.closest('.damage-expression-main').classList)
+  const damageExpressionMain = inputNode.closest('.damage-expression-main');
+  const rollType = Array.from(damageExpressionMain.classList)
     .reduce((x, y) => {
-      if (y.startsWith('damage-type')) {
-        return y.slice(12);
+      if (y.startsWith('roll-type')) {
+        return y;
       }
       return x;
     }, '');
+  const prefix = damageExpressionMain.previousElementSibling.innerText;
+
   // Either the input is within the '.damage-expression-child' or its the checkbax element preceding the '.damage-expression-child'
   const damageExpression = inputNode.closest('.damage-expression-child') || inputNode.nextElementSibling;
   const dataName = damageExpression.dataset.name;
@@ -170,13 +173,13 @@ function UpdateDiceExpression(inputNode) {
     if (node.nodeName == '#text') {
       return;
     }
-    if (node.classList.contains('damage-type-' + damageType)) {
+    if (node.classList.contains(rollType)) {
       parentCardMain.removeChild(node);
     }
   });
 
   if (dataName || textExpression) {
-    parentCardMain.appendChild(CreateDiceExpression(damageType, dataName, textExpression, numDiceTypes, addStatic));
+    parentCardMain.appendChild(CreateDiceExpression(rollType, prefix, dataName, textExpression, numDiceTypes, addStatic));
   }
 }
 

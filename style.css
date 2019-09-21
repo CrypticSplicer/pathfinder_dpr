@@ -126,16 +126,16 @@ comparison-column ~ comparison-column {
   margin-top: 5px;
 }
 
-.damage.damage-type-crit {
+.damage.roll-type-crit {
   order: 0;
 }
-.damage.damage-type-hit {
+.damage.roll-type-hit {
   order: 1;
 }
-.damage.damage-type-miss {
+.damage.roll-type-miss {
   order: 2;
 }
-.damage.damage-type-fumble {
+.damage.roll-type-fumble {
   order: 3;
 }
 

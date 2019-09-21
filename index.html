@@ -30,7 +30,7 @@
             <button onclick="CloseGreatGreatGrandParent(event)">Close</button>
             <button onclick="DuplicateAttack(event)">Duplicate</button>
             <span class="damage-expression-header">Crit</span>
-            <div class="damage-expression-main damage-type-crit">
+            <div class="damage-expression-main roll-type-crit">
               <span class="damage-expression-parent">
                 <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
                 <div class="damage-expression-child">
@@ -59,7 +59,7 @@
               </span>
             </div>
             <span class="damage-expression-header">Hit</span>
-            <div class="damage-expression-main damage-type-hit">
+            <div class="damage-expression-main roll-type-hit">
               <span class="damage-expression-parent">
                 <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
                 <div class="damage-expression-child" data-name="hit">
@@ -77,7 +77,7 @@
               </span>
             </div>
             <span class="damage-expression-header">Miss</span>
-            <div class="damage-expression-main damage-type-miss">
+            <div class="damage-expression-main roll-type-miss">
               <span class="damage-expression-parent">
                 <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
                 <div class="damage-expression-child">
@@ -95,7 +95,7 @@
               </span>
             </div>
             <span class="damage-expression-header">Fumble</span>
-            <div class="damage-expression-main damage-type-fumble">
+            <div class="damage-expression-main roll-type-fumble">
               <span class="damage-expression-parent">
                 <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
                 <div class="damage-expression-child">
@@ -118,8 +118,8 @@
           <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         </div>
         <div class="card-main">
-          <span class="damage damage-type-crit">Crit: Hit Damage x 2</span>
-          <span class="damage damage-type-hit" data-name="hit">Hit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage roll-type-crit">Crit: Hit Damage x 2</span>
+          <span class="damage roll-type-hit" data-name="hit">Hit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         </div>
       </div>
     </template>
@@ -132,7 +132,90 @@
           </button>
           <div class="dropdown-content">
             <button onclick="CloseGreatGreatGrandParent(event)">Close</button>
-            <button onclick="DuplicateSpell(event)">Duplicate</button>
+            <button onclick="DuplicateAttack(event)">Duplicate</button>
+            <span class="damage-expression-header">Crit Failure</span>
+            <div class="damage-expression-main roll-type-crit">
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
+                <div class="damage-expression-child">
+                  <span class="text-expression">Fail Damage x 2</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child" data-name="fumble-bonus">
+                  <span class="text-expression">Fail Damage x 2</span>
+                  <span>+</span>
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>dice types +</span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child" data-name="fumble">
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>Dice types +</span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static</span>
+                </div>
+              </span>
+            </div>
+            <span class="damage-expression-header">Failure</span>
+            <div class="damage-expression-main roll-type-hit">
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
+                <div class="damage-expression-child" data-name="miss">
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>Dice types + </span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child show-text">
+                  <span class="text-expression">No damage</span>
+                </div>
+              </span>
+            </div>
+            <span class="damage-expression-header">Success</span>
+            <div class="damage-expression-main roll-type-miss">
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
+                <div class="damage-expression-child">
+                  <span class="text-expression">Fail Damage / 2</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child" data-name="hit">
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>Dice types +</span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static</span>
+                </div>
+              </span>
+            </div>
+            <span class="damage-expression-header">Crit Success</span>
+            <div class="damage-expression-main roll-type-fumble">
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
+                <div class="damage-expression-child">
+                  <span>No damage</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child" data-name="crit">
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>Dice types + </span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static damage</span>
+                </div>
+              </span>
+            </div>
           </div>
         </div>
         <div class="card-header">
@@ -147,7 +230,9 @@
           <span>Targets: <input type="number" size="1" maxlength="2" width="min" class="spell-targets" value="1"><span>
         </div>
         <div class="card-main">
-          <span class="damage" data-name="miss">Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage roll-type-crit">Crit Failure: Fail Damage x 2</span>
+          <span class="damage roll-type-hit" data-name="hit">Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage roll-type-miss">Success: Fail Damage / 2</span>
         </div>
       </div>
     </template>
@@ -204,7 +289,5 @@
       </button>
       <comparison-column></comparison-column>
     </div>
-
-    <script src="listeners.js"></script>
   </body>
 </html>
