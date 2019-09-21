@@ -127,6 +127,7 @@ function CreateDiceExpression(type, prefix, dataName, textExpression, numDiceTyp
     }
     let staticInput = document.createElement('input');
     staticInput.classList.add('static-bonus');
+    staticInput.setAttribute('type', 'number');
     staticInput.setAttribute('size', '1');
     staticInput.setAttribute('maxlength', '2');
     output.append(staticInput);

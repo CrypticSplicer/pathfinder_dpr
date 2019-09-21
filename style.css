@@ -108,7 +108,7 @@ comparison-column ~ comparison-column {
 
 .damage-source {
   height: fit-content;
-  max-width: 600px;
+  width: 300px;
   background: rgb(193,139,112);
   background: linear-gradient(248deg, rgba(193,139,112,1) 49%, rgba(186,101,72,1) 96%);
   display: grid;
@@ -128,6 +128,18 @@ comparison-column ~ comparison-column {
   margin-top: 5px;
 }
 
+.damage {
+  display: flex;
+  flex-wrap: wrap;
+}
+.damage dice-span {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.damage .static-bonus {
+  margin-left: 3px;
+  height: 18px;
+}
 .damage.roll-type-crit {
   order: 0;
 }
