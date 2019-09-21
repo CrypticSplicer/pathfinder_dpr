@@ -136,7 +136,7 @@ function CreateDiceExpression(type, dataName, textExpression, numDiceTypes, hasS
 }
 
 function UpdateDiceExpression(inputNode) {
-  const damageType = Array.from(event.target.closest('.damage-expression-main').classList)
+  const damageType = Array.from(inputNode.closest('.damage-expression-main').classList)
     .reduce((x, y) => {
       if (y.startsWith('damage-type')) {
         return y.slice(12);
@@ -144,7 +144,7 @@ function UpdateDiceExpression(inputNode) {
       return x;
     }, '');
   // Either the input is within the '.damage-expression-child' or its the checkbax element preceding the '.damage-expression-child'
-  const damageExpression = event.target.closest('.damage-expression-child') || event.target.nextElementSibling;
+  const damageExpression = inputNode.closest('.damage-expression-child') || inputNode.nextElementSibling;
   const dataName = damageExpression.dataset.name;
 
   let textExpression = '';
@@ -164,7 +164,7 @@ function UpdateDiceExpression(inputNode) {
     }
   });
 
-  const parentCardMain = event.target.closest('.damage-source')
+  const parentCardMain = inputNode.closest('.damage-source')
     .getElementsByClassName('card-main')[0];
   Array.from(parentCardMain.childNodes).forEach(node => {
     if (node.nodeName == '#text') {
