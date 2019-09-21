@@ -13,7 +13,11 @@
     <title>Pathfinder 2E DPR</title>
 
     <template id="dice-span-template">
-      <span class="dice"><input type="number" size="1" maxlength="2" class="die-number">d<input type="number" size="1" maxlength="2" class="die-size"></span>
+      <span class="dice">
+        <input type="number" size="1" maxlength="2" class="die-number dice-input">
+        <span>d</span>
+        <input type="number" size="1" maxlength="2" class="die-size dice-input">
+      </span>
     </template>
 
     <template id="attack-card-template">
@@ -25,15 +29,97 @@
           <div class="dropdown-content">
             <button onclick="CloseGreatGreatGrandParent(event)">Close</button>
             <button onclick="DuplicateAttack(event)">Duplicate</button>
+            <span class="damage-expression-header">Crit</span>
+            <div class="damage-expression-main damage-type-crit">
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
+                <div class="damage-expression-child">
+                  <span class="text-expression">Hit Damage x 2</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child" data-name="crit-bonus">
+                  <span class="text-expression">Hit Damage x 2</span>
+                  <span>+</span>
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>dice types +</span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child" data-name="crit">
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>Dice types +</span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static</span>
+                </div>
+              </span>
+            </div>
+            <span class="damage-expression-header">Hit</span>
+            <div class="damage-expression-main damage-type-hit">
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
+                <div class="damage-expression-child" data-name="hit">
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>Dice types + </span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child show-text">
+                  <span class="text-expression">No damage</span>
+                </div>
+              </span>
+            </div>
+            <span class="damage-expression-header">Miss</span>
+            <div class="damage-expression-main damage-type-miss">
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
+                <div class="damage-expression-child">
+                  <span>No damage</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child" data-name="miss">
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>Dice types +</span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static</span>
+                </div>
+              </span>
+            </div>
+            <span class="damage-expression-header">Fumble</span>
+            <div class="damage-expression-main damage-type-fumble">
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)" checked>
+                <div class="damage-expression-child">
+                  <span>No damage</span>
+                </div>
+              </span>
+              <span class="damage-expression-parent">
+                <input type="checkbox" onclick="SelectDiceExpression(event)">
+                <div class="damage-expression-child" data-name="fumble">
+                  <input type="number" size="1" maxlength="2" class="number-dice-types" value="1" onkeydown="UpdateDiceExpression(this)">
+                  <span>Dice types + </span>
+                  <input type="checkbox" class="add-static-damage" onclick="UpdateDiceExpression(event.target)" checked>
+                  <span>static damage</span>
+                </div>
+              </span>
+            </div>
           </div>
         </div>
         <div class="card-header">
           <span>Attack Bonus: <input type="number" size="1" maxlength="2" width="min" class="attack-bonus"></span>
         </div>
         <div class="card-main">
-          <span class="damage" data-name="crit">Crit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="damage" data-name="hit">Hit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="damage" data-name="miss">Miss: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
+          <span class="damage damage-type-crit">Crit: Hit Damage x 2</span>
+          <span class="damage damage-type-hit" data-name="hit">Hit: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         </div>
       </div>
     </template>
@@ -61,10 +147,7 @@
           <span>Targets: <input type="number" size="1" maxlength="2" width="min" class="spell-targets" value="1"><span>
         </div>
         <div class="card-main">
-          <span class="damage" data-name="fumble">Crit Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
           <span class="damage" data-name="miss">Failure: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="damage" data-name="hit">Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
-          <span class="damage" data-name="crit">Crit Success: <dice-span></dice-span> + <input type="number" size="1" maxlength="2" class="static-bonus"></span>
         </div>
       </div>
     </template>

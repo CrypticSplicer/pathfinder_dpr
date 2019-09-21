@@ -26,15 +26,18 @@ function SuccessPercentiles(adjustedCheck) {
 
 function ParseDamage(damage) {
   return {
-    staticBonus: damage.getElementsByClassName("static-bonus") ?
-      Number(damage.getElementsByClassName("static-bonus")[0].value) || 0 : 0,
+    staticBonus: damage.getElementsByClassName("static-bonus") &&
+      damage.getElementsByClassName("static-bonus")[0] ?
+        Number(damage.getElementsByClassName("static-bonus")[0].value) || 0 : 0,
     dice: Array.from(damage.getElementsByClassName("dice"))
       .map(x => {
         return {
-          dieNumber: x.getElementsByClassName("die-number") ?
-            Number(x.getElementsByClassName("die-number")[0].value) || -1 : -1,
-          dieSize: x.getElementsByClassName("die-size") ?
-            Number(x.getElementsByClassName("die-size")[0].value) || 0 : 0,
+          dieNumber: x.getElementsByClassName("die-number") &&
+            x.getElementsByClassName("die-number")[0] ?
+              Number(x.getElementsByClassName("die-number")[0].value) || -1 : -1,
+          dieSize: x.getElementsByClassName("die-size") &&
+            x.getElementsByClassName("die-size")[0] ?
+              Number(x.getElementsByClassName("die-size")[0].value) || 0 : 0,
         }
       })
       .filter(x => x.dieNumber >= 0),
@@ -110,7 +113,7 @@ function AttackAverage(ac, ref, fort, will, attack) {
     let hit = DamageAverage(attack.damage.get('hit'));
     let crit = attack.damage.has('crit') ?
       DamageAverage(attack.damage.get('crit')) :
-      (hit * 2) + DamageAverage(attack.damage.get('critBonus'));
+      (hit * 2) + DamageAverage(attack.damage.get('crit-bonus'));
     let miss = DamageAverage(attack.damage.get('miss'));
     let fumble = DamageAverage(attack.damage.get('fumble'));
 
@@ -162,7 +165,6 @@ function AttackAverage(ac, ref, fort, will, attack) {
 
 function ColumnAverage(column) {
   return Sum(column.attacks.map(x => {
-
     return AttackAverage(column.ac, column.ref, column.fort, column.will, x);
   }));
 }

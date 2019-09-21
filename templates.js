@@ -103,9 +103,112 @@ function DuplicateColumn(event) {
   event.target.closest(".main").appendChild(column);
 }
 
+function CreateDiceExpression(type, dataName, textExpression, numDiceTypes, hasStatic) {
+  let output = document.createElement('span');
+  output.classList.add('damage');
+  output.classList.add('damage-type-' + type);
+  output.append(document.createTextNode(type.charAt(0).toUpperCase() + type.slice(1) + ': ' + textExpression));
+
+  if (!dataName) {
+    return output;
+  }
+  output.setAttribute('data-name', dataName)
+
+  for (let i = 0; i < numDiceTypes; i++) {
+    if (i != 0 || textExpression) {
+      output.append(document.createTextNode(' + '));
+    }
+    output.append(document.createElement('dice-span'));
+  }
+
+  if (hasStatic) {
+    if (numDiceTypes > 0 || textExpression) {
+      output.append(document.createTextNode(' + '));
+    }
+    let staticInput = document.createElement('input');
+    staticInput.classList.add('static-bonus');
+    staticInput.setAttribute('size', '1');
+    staticInput.setAttribute('maxlength', '2');
+    output.append(staticInput);
+  }
+
+  return output;
+}
+
+function UpdateDiceExpression(inputNode) {
+  const damageType = Array.from(event.target.closest('.damage-expression-main').classList)
+    .reduce((x, y) => {
+      if (y.startsWith('damage-type')) {
+        return y.slice(12);
+      }
+      return x;
+    }, '');
+  // Either the input is within the '.damage-expression-child' or its the checkbax element preceding the '.damage-expression-child'
+  const damageExpression = event.target.closest('.damage-expression-child') || event.target.nextElementSibling;
+  const dataName = damageExpression.dataset.name;
+
+  let textExpression = '';
+  let numDiceTypes = 0;
+  let addStatic = false;
+  Array.from(damageExpression.childNodes).forEach(node => {
+    if (node.nodeName == '#text') {
+      return;
+    }
+
+    if (node.classList.contains('text-expression')) {
+      textExpression = node.innerText;
+    } else if (node.classList.contains('number-dice-types')) {
+      numDiceTypes = node.value;
+    } else if (node.classList.contains('add-static-damage')) {
+      addStatic = node.checked;
+    }
+  });
+
+  const parentCardMain = event.target.closest('.damage-source')
+    .getElementsByClassName('card-main')[0];
+  Array.from(parentCardMain.childNodes).forEach(node => {
+    if (node.nodeName == '#text') {
+      return;
+    }
+    if (node.classList.contains('damage-type-' + damageType)) {
+      parentCardMain.removeChild(node);
+    }
+  });
+
+  if (dataName || textExpression) {
+    parentCardMain.appendChild(CreateDiceExpression(damageType, dataName, textExpression, numDiceTypes, addStatic));
+  }
+}
+
+function SelectDiceExpression(event) {
+  let selectedNode = event.target;
+  for (let node of event.target.closest('.damage-expression-main').childNodes) {
+    if (node.nodeName == '#text') {
+      continue;
+    }
+
+    if (!selectedNode.checked) {
+      selectedNode = node.childNodes[1];
+      selectedNode.checked = true;
+      break;
+    }
+
+    if (node !== event.target.parentElement) {
+      node.childNodes[1].checked = false;
+    }
+  }
+
+  UpdateDiceExpression(selectedNode);
+}
+
 document.addEventListener('blur', (event) => {
   if (event.target.tagName == "INPUT") {
-    AverageDPR();
+    if (event.target.classList.contains('number-dice-types') ||
+      event.target.classList.contains('add-static-damage')) {
+      UpdateDiceExpression(event.target);
+    } else {
+      AverageDPR();
+    }
   }
 }, true);
 document.addEventListener('keypress', (event) => {
