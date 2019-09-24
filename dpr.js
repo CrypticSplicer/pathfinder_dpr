@@ -172,8 +172,10 @@ function ColumnAverage(column) {
 function AverageDPR() {
   Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
     let columnData = ParseColumn(column);
-    let damage = ColumnAverage(columnData);
-    column.getElementsByClassName("average-damage")[0].innerHTML = +damage.toFixed(2);
+    console.log(columnData)
+    let damage = +ColumnAverage(columnData).toFixed(2);
+    console.log(columnData)
+    column.getElementsByClassName("average-damage")[0].innerHTML = damage;
   });
 }
 
