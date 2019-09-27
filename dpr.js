@@ -118,7 +118,9 @@ function AttackAverage(ac, ref, fort, will, attack) {
     let fumble = DamageAverage(attack.damage.get('fumble'));
 
     let damage = [crit, hit, miss, fumble];
-    return Sum([... damage.keys()].map(i => percentiles[i] * damage[i]));
+    let damageAverages = [... damage.keys()].map(i => percentiles[i] * damage[i]);
+    console.log(damageAverages);
+    return Sum(damageAverages);
   } else if (attack.type == 'spell') {
     let adjustedCheck = 0;
     let targets = attack.spellTargets;
@@ -157,7 +159,9 @@ function AttackAverage(ac, ref, fort, will, attack) {
     let crit = DamageAverage(attack.damage.get('crit'));
 
     let damage = [crit, hit, miss, fumble];
-    return Sum([... damage.keys()].map(i => percentiles[i] * damage[i])) * targets;
+    let damageAverages = [... damage.keys()].map(i => percentiles[i] * damage[i]);
+    console.log(damageAverages);
+    return Sum(damageAverages) * targets;
   }
 
   return 0;
@@ -174,7 +178,7 @@ function AverageDPR() {
     let columnData = ParseColumn(column);
     console.log(columnData)
     let damage = +ColumnAverage(columnData).toFixed(2);
-    console.log(columnData)
+    console.log(damage)
     column.getElementsByClassName("average-damage")[0].innerHTML = damage;
   });
 }
