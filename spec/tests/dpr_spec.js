@@ -51,7 +51,7 @@ describe("Math Suite", function() {
 		expect(DPR.AttackAverage(23, 12, 12, 11, attackExpression)).toBeCloseTo(33.3, 0.002);
 	});
 
-	it("AttackAverage Spell Average Succeeds", function() {
+	it("AttackAverage Multitarget Spell Average Succeeds", function() {
 		let attackExpression = {
 			"type": "spell",
 			"spellSave": 25,
@@ -70,6 +70,48 @@ describe("Math Suite", function() {
 			]),
 		};
 		expect(DPR.AttackAverage(23, 12, 13, 11, attackExpression)).toBeCloseTo(25.9, 0.002);
+	});
+
+	it("AttackAverage Multitarget Spell Average Succeeds", function() {
+		let attackExpression = {
+			"type": "spell",
+			"spellSave": 25,
+			"saveType": "ref",
+			"spellTargets": 1,
+			"damage": new Map([
+				[
+					"miss", {
+						"staticBonus": 1,
+						"dice": [{
+							"dieNumber": 3,
+							"dieSize": 6
+						}]
+					}
+				]
+			]),
+		};
+		expect(DPR.AttackAverage(0, 12, 0, 0, attackExpression)).toBeCloseTo(10.637, 0.001);
+	});
+
+	it("AttackAverage Spell Average Succeeds Cont", function() {
+		let attackExpression = {
+			"type": "spell",
+			"spellSave": 25,
+			"saveType": "ref",
+			"spellTargets": 1,
+			"damage": new Map([
+				[
+					"miss", {
+						"staticBonus": 1,
+						"dice": [{
+							"dieNumber": 3,
+							"dieSize": 6
+						}]
+					}
+				]
+			]),
+		};
+		expect(DPR.AttackAverage(0, 13, 0, 0, attackExpression)).toBeCloseTo(9.775, 0.001);
 	});
 
 	it("AttackAverage Spell Average No Hit Damage Succeeds", function() {

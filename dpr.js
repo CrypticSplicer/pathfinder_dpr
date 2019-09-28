@@ -178,7 +178,6 @@ function AverageDPR() {
     let columnData = ParseColumn(column);
     console.log(columnData)
     let damage = +ColumnAverage(columnData).toFixed(2);
-    console.log(damage)
     column.getElementsByClassName("average-damage")[0].innerHTML = damage;
   });
 }
