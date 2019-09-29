@@ -205,6 +205,11 @@ input[maxlength="2"] {
   height: 1em;
   font-size: 16px;
 }
+input[maxlength="3"] {
+  width: 1.8em;
+  height: 1em;
+  font-size: 16px;
+}
 input.die-number,
 input.number-dice-types {
   text-align: right;

@@ -28,16 +28,16 @@ function ParseDamage(damage) {
   return {
     staticBonus: damage.getElementsByClassName("static-bonus") &&
       damage.getElementsByClassName("static-bonus")[0] ?
-        Number(damage.getElementsByClassName("static-bonus")[0].value) || 0 : 0,
+      Number(damage.getElementsByClassName("static-bonus")[0].value) || 0 : 0,
     dice: Array.from(damage.getElementsByClassName("dice"))
       .map(x => {
         return {
           dieNumber: x.getElementsByClassName("die-number") &&
             x.getElementsByClassName("die-number")[0] ?
-              Number(x.getElementsByClassName("die-number")[0].value) || -1 : -1,
+            Number(x.getElementsByClassName("die-number")[0].value) || -1 : -1,
           dieSize: x.getElementsByClassName("die-size") &&
             x.getElementsByClassName("die-size")[0] ?
-              Number(x.getElementsByClassName("die-size")[0].value) || 0 : 0,
+            Number(x.getElementsByClassName("die-size")[0].value) || 0 : 0,
         }
       })
       .filter(x => x.dieNumber >= 0),
@@ -71,124 +71,121 @@ function ParseAttack(card) {
     .map(x => {
       return [x.dataset.name, ParseDamage(x)];
     })
-    .filter(x => Object.getOwnPropertyNames(x).length > 0 && x[1].dice.length > 0));
+    .filter(x => {
+      return Object.getOwnPropertyNames(x).length > 0 &&
+        (x[1].dice.length > 0 || x[1].staticBonus != 0);
+    }));
 
-  return output;
-}
-
-function ParseColumn(column) {
-  return {
-    ac: Number(column.getElementsByClassName("comparison-ac")[0].value),
-    ref: Number(column.getElementsByClassName("comparison-ref")[0].value),
-    fort: Number(column.getElementsByClassName("comparison-fort")[0].value),
-    will: Number(column.getElementsByClassName("comparison-will")[0].value),
-    attacks: Array.from(column.getElementsByClassName("damage-source"))
-      .map(x => {
-        return ParseAttack(x);
-      })
-      .filter(x => Object.getOwnPropertyNames(x).length > 0 && x.damage.size > 0),
+    return output;
   }
-}
 
-function DamageAverage(damage) {
-  if (damage == undefined) {
+  function ParseColumn(column) {
+    return {
+      ac: Number(column.getElementsByClassName("comparison-ac")[0].value),
+      ref: Number(column.getElementsByClassName("comparison-ref")[0].value),
+      fort: Number(column.getElementsByClassName("comparison-fort")[0].value),
+      will: Number(column.getElementsByClassName("comparison-will")[0].value),
+      attacks: Array.from(column.getElementsByClassName("damage-source"))
+        .map(x => {
+          return ParseAttack(x);
+        })
+        .filter(x => Object.getOwnPropertyNames(x).length > 0 && x.damage.size > 0),
+    }
+  }
+
+  function DamageAverage(damage) {
+    if (damage == undefined) {
+      return 0;
+    }
+    return Sum(damage.dice.map(x => {
+      if (x.dieNumber <= 0 || x.dieSize <= 0) {
+        return 0;
+      }
+      return x.dieNumber * (x.dieSize / 2.0 + 0.5);
+    })) + damage.staticBonus;
+  }
+
+  function AttackAverage(ac, ref, fort, will, attack) {
+    if (attack.type == 'attack') {
+      if (Number.isNaN(ac)) {
+        return 0;
+      }
+
+      let adjustedCheck = ac - attack.attackBonus;
+      let percentiles = SuccessPercentiles(adjustedCheck);
+      let hit = DamageAverage(attack.damage.get('hit'));
+      let crit = attack.damage.has('crit') ?
+        DamageAverage(attack.damage.get('crit')) :
+        (hit * 2) + DamageAverage(attack.damage.get('crit-bonus'));
+      let miss = DamageAverage(attack.damage.get('miss'));
+      let fumble = DamageAverage(attack.damage.get('fumble'));
+
+      let damage = [crit, hit, miss, fumble];
+      return Sum([...damage.keys()].map(i => percentiles[i] * damage[i]));
+    } else if (attack.type == 'spell') {
+      let adjustedCheck = 0;
+      let targets = attack.spellTargets;
+      switch (attack.saveType) {
+        case 'ref':
+          if (Number.isNaN(ref)) {
+            return 0;
+          }
+          adjustedCheck = attack.spellSave - ref;
+          break;
+        case 'fort':
+          if (Number.isNaN(fort)) {
+            return 0;
+          }
+          adjustedCheck = attack.spellSave - fort;
+          break;
+        case 'will':
+          if (Number.isNaN(will)) {
+            return 0;
+          }
+          adjustedCheck = attack.spellSave - will;
+          break;
+        default:
+          return 0;
+          break;
+      }
+
+      let percentiles = SuccessPercentiles(adjustedCheck);
+      let miss = DamageAverage(attack.damage.get('miss'));
+      let fumble = attack.damage.has('fumble') ?
+        DamageAverage(attack.damage.get('fumble')) :
+        (miss * 2) + DamageAverage(attack.damage.get('fumble-bonus'));
+      let hit = attack.damage.has('hit') ?
+        DamageAverage(attack.damage.get('hit')) :
+        miss / 2.0;
+      let crit = DamageAverage(attack.damage.get('crit'));
+
+      let damage = [crit, hit, miss, fumble];
+      return Sum([...damage.keys()].map(i => percentiles[i] * damage[i])) * targets;
+    }
+
     return 0;
   }
-  return Sum(damage.dice.map(x => {
-    if (x.dieNumber <= 0 || x.dieSize <= 0) {
-      return 0;
-    }
-    return x.dieNumber * (x.dieSize / 2.0 + 0.5);
-  })) + damage.staticBonus;
-}
 
-function AttackAverage(ac, ref, fort, will, attack) {
-  if (attack.type == 'attack') {
-    if (Number.isNaN(ac)) {
-      return 0;
-    }
-
-    let adjustedCheck = ac - attack.attackBonus;
-    let percentiles = SuccessPercentiles(adjustedCheck);
-    let hit = DamageAverage(attack.damage.get('hit'));
-    let crit = attack.damage.has('crit') ?
-      DamageAverage(attack.damage.get('crit')) :
-      (hit * 2) + DamageAverage(attack.damage.get('crit-bonus'));
-    let miss = DamageAverage(attack.damage.get('miss'));
-    let fumble = DamageAverage(attack.damage.get('fumble'));
-
-    let damage = [crit, hit, miss, fumble];
-    let damageAverages = [... damage.keys()].map(i => percentiles[i] * damage[i]);
-    console.log(damageAverages);
-    return Sum(damageAverages);
-  } else if (attack.type == 'spell') {
-    let adjustedCheck = 0;
-    let targets = attack.spellTargets;
-    switch(attack.saveType) {
-      case 'ref':
-        if (Number.isNaN(ref)) {
-          return 0;
-        }
-        adjustedCheck = attack.spellSave - ref;
-        break;
-      case 'fort':
-        if (Number.isNaN(fort)) {
-          return 0;
-        }
-        adjustedCheck = attack.spellSave - fort;
-        break;
-      case 'will':
-        if (Number.isNaN(will)) {
-          return 0;
-        }
-        adjustedCheck = attack.spellSave - will;
-        break;
-      default:
-        return 0;
-        break;
-    }
-
-    let percentiles = SuccessPercentiles(adjustedCheck);
-    let miss = DamageAverage(attack.damage.get('miss'));
-    let fumble = attack.damage.has('fumble') ?
-      DamageAverage(attack.damage.get('fumble')) :
-      (miss * 2) + DamageAverage(attack.damage.get('fumble-bonus'));
-    let hit = attack.damage.has('hit') ?
-      DamageAverage(attack.damage.get('hit')) :
-      miss / 2.0;
-    let crit = DamageAverage(attack.damage.get('crit'));
-
-    let damage = [crit, hit, miss, fumble];
-    let damageAverages = [... damage.keys()].map(i => percentiles[i] * damage[i]);
-    console.log(damageAverages);
-    return Sum(damageAverages) * targets;
+  function ColumnAverage(column) {
+    return Sum(column.attacks.map(x => {
+      return AttackAverage(column.ac, column.ref, column.fort, column.will, x);
+    }));
   }
 
-  return 0;
-}
+  function AverageDPR() {
+    Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
+      let columnData = ParseColumn(column);
+      column.getElementsByClassName("average-damage")[0].innerHTML = +ColumnAverage(columnData).toFixed(2);
+    });
+  }
 
-function ColumnAverage(column) {
-  return Sum(column.attacks.map(x => {
-    return AttackAverage(column.ac, column.ref, column.fort, column.will, x);
-  }));
-}
-
-function AverageDPR() {
-  Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
-    let columnData = ParseColumn(column);
-    console.log(columnData)
-    let damage = +ColumnAverage(columnData).toFixed(2);
-    column.getElementsByClassName("average-damage")[0].innerHTML = damage;
-  });
-}
-
-module.exports = {
-  ParseDamage: ParseDamage,
-  ParseAttack: ParseAttack,
-  ParseColumn: ParseColumn,
-  DamageAverage: DamageAverage,
-  AttackAverage: AttackAverage,
-  ColumnAverage: ColumnAverage,
-  AdjustedCheckSuccess: AdjustedCheckSuccess,
-  SuccessPercentiles: SuccessPercentiles,
-};
+  module.exports = {
+    ParseDamage: ParseDamage,
+    ParseAttack: ParseAttack,
+    ParseColumn: ParseColumn,
+    DamageAverage: DamageAverage,
+    AttackAverage: AttackAverage,
+    ColumnAverage: ColumnAverage,
+    AdjustedCheckSuccess: AdjustedCheckSuccess,
+    SuccessPercentiles: SuccessPercentiles,
+  };
