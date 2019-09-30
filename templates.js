@@ -221,3 +221,11 @@ document.addEventListener('keypress', (event) => {
     AverageDPR();
   }
 }, true);
+
+function DefenseFromLevel(level){
+  var ac = 14+1.34*(level);
+  var ref = 0;
+  var fort = 0;
+  var will = 0;
+  return {'ac': ac, 'ref': ref, 'fort': fort, 'will': will} 
+}
