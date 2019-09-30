@@ -175,7 +175,7 @@ function ParseAttack(card) {
   function AverageDPR() {
     Array.from(document.getElementsByClassName("comparison-column")).forEach(column => {
       let columnData = ParseColumn(column);
-      column.getElementsByClassName("average-damage")[0].innerHTML = +ColumnAverage(columnData).toFixed(2);
+      column.getElementsByClassName("average-damage")[0].innerHTML = ColumnAverage(columnData).toPrecision(2);
     });
   }
 

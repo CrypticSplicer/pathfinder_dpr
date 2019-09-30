@@ -206,7 +206,7 @@ function SelectDiceExpression(event) {
 }
 
 function DefenseFromLevel(level) {
-  var ac = 14 + 1.34 * (level);
+  var ac = Math.floor(14 + 1.34 * (level));
   var ref = ac - 11;
   var fort = ac - 10;
   var will = ac - 12;
@@ -220,7 +220,7 @@ function DefenseFromLevel(level) {
 
 function FillDefenses(inputNode) {
   const comparisonStats = inputNode.closest('.comparison-column').getElementsByClassName('comparison-stats')[0];
-  const defenses = defenseFromLevel(inputNode.value);
+  const defenses = DefenseFromLevel(inputNode.value);
   comparisonStats.getElementsByClassName('comparison-ac')[0].value = defenses.ac;
   comparisonStats.getElementsByClassName('comparison-ref')[0].value = defenses.ref;
   comparisonStats.getElementsByClassName('comparison-fort')[0].value = defenses.fort;
