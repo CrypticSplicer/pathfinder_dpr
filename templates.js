@@ -205,6 +205,19 @@ function SelectDiceExpression(event) {
   UpdateDiceExpression(selectedNode);
 }
 
+function DefenseFromLevel(level) {
+  var ac = 14 + 1.34 * (level);
+  var ref = ac - 11;
+  var fort = ac - 10;
+  var will = ac - 12;
+  return {
+    'ac': ac,
+    'ref': ref,
+    'fort': fort,
+    'will': will
+  };
+}
+
 function FillDefenses(inputNode) {
   const comparisonStats = inputNode.closest('.comparison-column').getElementsByClassName('comparison-stats')[0];
   const defenses = defenseFromLevel(inputNode.value);
@@ -222,9 +235,9 @@ document.addEventListener('blur', (event) => {
     } else if (event.target.classList.contains('fill-defenses')) {
       FillDefenses(event.target)
     } else {
-    AverageDPR();
+      AverageDPR();
+    }
   }
-}
 }, true);
 document.addEventListener('keypress', (event) => {
   let key = event.which || event.keyCode;
@@ -232,11 +245,3 @@ document.addEventListener('keypress', (event) => {
     AverageDPR();
   }
 }, true);
-
-function DefenseFromLevel(level){
-  var ac = 14+1.34*(level);
-  var ref = 0;
-  var fort = 0;
-  var will = 0;
-  return {'ac': ac, 'ref': ref, 'fort': fort, 'will': will} 
-}
