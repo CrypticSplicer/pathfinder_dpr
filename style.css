@@ -108,7 +108,8 @@ comparison-column ~ comparison-column {
 
 .dropdown-line {
   color: black;
-  width: max-content;
+  width: 190px;
+  padding-left: 10px;
 }
 
 .damage-source {
