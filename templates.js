@@ -205,15 +205,26 @@ function SelectDiceExpression(event) {
   UpdateDiceExpression(selectedNode);
 }
 
+function FillDefenses(inputNode) {
+  const comparisonStats = inputNode.closest('.comparison-column').getElementsByClassName('comparison-stats')[0];
+  const defenses = defenseFromLevel(inputNode.value);
+  comparisonStats.getElementsByClassName('comparison-ac')[0].value = defenses.ac;
+  comparisonStats.getElementsByClassName('comparison-ref')[0].value = defenses.ref;
+  comparisonStats.getElementsByClassName('comparison-fort')[0].value = defenses.fort;
+  comparisonStats.getElementsByClassName('comparison-will')[0].value = defenses.will;
+}
+
 document.addEventListener('blur', (event) => {
   if (event.target.tagName == "INPUT") {
     if (event.target.classList.contains('number-dice-types') ||
       event.target.classList.contains('add-static-damage')) {
       UpdateDiceExpression(event.target);
+    } else if (event.target.classList.contains('fill-defenses')) {
+      FillDefenses(event.target)
     } else {
-      AverageDPR();
-    }
+    AverageDPR();
   }
+}
 }, true);
 document.addEventListener('keypress', (event) => {
   let key = event.which || event.keyCode;
