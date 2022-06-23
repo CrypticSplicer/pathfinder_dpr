@@ -9,7 +9,7 @@
   "devDependencies": {
     "jasmine": "^3.4.0",
     "jasmine-jquery": "^2.1.1",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.5.0",
     "underscore": "^1.9.1"
   },
   "scripts": {
